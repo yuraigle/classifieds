@@ -1,0 +1,15 @@
+Entity\Session:
+  type: entity
+  table: sessions
+  repositoryClass: \User_Model_SessionRepository
+
+  id:
+    id:
+      type: string
+      length: 255
+  fields:
+    created:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create

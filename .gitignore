@@ -1,0 +1,7 @@
+/vendor/*
+/application/logs/*
+/doctrine/Entity/*
+/doctrine/Proxy/*
+/public/css/*
+/public/js/*
+/public/img/*

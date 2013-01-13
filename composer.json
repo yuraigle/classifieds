@@ -1,0 +1,18 @@
+{
+    "name": "rene/classifieds",
+    "authors": [
+        {
+            "name": "Rene Aigle",
+            "email": "reneaigle@gmail.com"
+        }
+    ],
+    "require": {
+        "digital-canvas/zend-framework": "dev-master",
+        "doctrine/orm": "2.4.*@dev",
+        "doctrine/dbal": "2.4.*@dev",
+        "symfony/yaml": "2.1.*@dev",
+        "gedmo/doctrine-extensions": "2.3.*@dev",
+        "leafo/lessphp": "dev-master",
+        "coffeescript/coffeescript": "dev-master"
+    }
+}

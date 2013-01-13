@@ -1,0 +1,36 @@
+Entity\User:
+  type: entity
+  table: users
+  repositoryClass: \User_Model_UserRepository
+
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    username:
+      type: string
+      length: 255
+    email:
+      type: string
+      length: 255
+    password:
+      type: string
+      length: 255
+    salt:
+      type: string
+      length: 255
+    role:
+      type: string
+      length: 20
+    created:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+    slug:
+      type: string
+      length: 255
+    deleted:
+      type: boolean
