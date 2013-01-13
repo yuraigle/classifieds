@@ -8,10 +8,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $this->bootstrap('Doctrine'); // Create EntityManager
         $em = $this->getResource('doctrine')->getEntityManager();
 
-//        $gedmo_path = realpath(APPLICATION_PATH . '/../vendor/gedmo/doctrine-extensions/lib/');
-//        $gedmoAutoloader = new \Doctrine\Common\ClassLoader('Gedmo', $gedmo_path);
-//        $gedmoAutoloader->register();
-
         $em->getEventManager()->addEventSubscriber(new \Gedmo\Timestampable\TimestampableListener());
         $em->getEventManager()->addEventSubscriber(new \Gedmo\Sluggable\SluggableListener());
 
