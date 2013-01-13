@@ -14,15 +14,22 @@ class Core_IndexController extends Bisna\Controller\Action
             "username" => "Rene",
             "password" => "qwerty",
             "email" => "rene@gmail.com",
+            "deleted" => false,
         );
 
-        $user = new \Entity\User();
-        // $user->populate($request);
+        /*$user = new \Entity\User();
         $user->setUsername("Rene");
-        $user->setPassword("qwerty");
         $user->setEmail("rene@gmail.com");
+        $user->setSalt(md5(uniqid(rand(), TRUE)));
+        $user->setPassword(md5("qwerty" . $user->getSalt()));
+        $user->setDeleted(false);
 
         $this->em()->persist($user);
-        $this->em()->flush();
+        $this->em()->flush();*/
+
+        $user = $this->em()->find('\Entity\User', 6);
+        $arr = $user->getArrayCopy();
+
+        print_r($arr);
     }
 }

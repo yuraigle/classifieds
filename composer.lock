@@ -1,5 +1,5 @@
 {
-    "hash": "fa79eafcbbb6032c150b2f69f3c05596",
+    "hash": "3ad70b28a64abc4e2a138ec4391a7bf1",
     "packages": [
         {
             "name": "coffeescript/coffeescript",
@@ -157,32 +157,32 @@
         },
         {
             "name": "doctrine/dbal",
-            "version": "dev-master",
+            "version": "2.3.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal",
-                "reference": "2f3377c0f28b276655a11ed54d0b2ac7ba5ad2d3"
+                "reference": "4c33f633c48eeafe3408b308f6fc51743a21a3b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/doctrine/dbal/archive/2f3377c0f28b276655a11ed54d0b2ac7ba5ad2d3.zip",
-                "reference": "2f3377c0f28b276655a11ed54d0b2ac7ba5ad2d3",
+                "url": "https://github.com/doctrine/dbal/archive/4c33f633c48eeafe3408b308f6fc51743a21a3b7.zip",
+                "reference": "4c33f633c48eeafe3408b308f6fc51743a21a3b7",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2",
-                "doctrine/common": ">=2.3-dev,<2.5-dev"
+                "doctrine/common": "2.3.*"
             },
-            "time": "2013-01-08 15:37:28",
+            "time": "2013-01-07 20:03:43",
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.4.x-dev"
+                    "dev-master": "2.3.x-dev"
                 }
             },
             "autoload": {
                 "psr-0": {
-                    "Doctrine\\DBAL\\": "lib/"
+                    "Doctrine\\DBAL": "lib/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -220,28 +220,28 @@
         },
         {
             "name": "doctrine/orm",
-            "version": "dev-master",
+            "version": "2.3.x-dev",
             "source": {
                 "type": "git",
                 "url": "git://github.com/doctrine/doctrine2.git",
-                "reference": "6f572a61c75b941c757a1f8c8cd89cc60b0d000e"
+                "reference": "6829c464e88cccd7a2a0714e42e95f3930b38e37"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/doctrine/doctrine2/archive/6f572a61c75b941c757a1f8c8cd89cc60b0d000e.zip",
-                "reference": "6f572a61c75b941c757a1f8c8cd89cc60b0d000e",
+                "url": "https://github.com/doctrine/doctrine2/archive/6829c464e88cccd7a2a0714e42e95f3930b38e37.zip",
+                "reference": "6829c464e88cccd7a2a0714e42e95f3930b38e37",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2",
                 "ext-pdo": "*",
                 "symfony/console": "2.*",
-                "doctrine/dbal": ">=2.4-dev,<2.5-dev"
+                "doctrine/dbal": "2.3.*"
             },
             "suggest": {
                 "symfony/yaml": "If you want to use YAML Metadata Mapping Driver"
             },
-            "time": "2013-01-12 09:29:20",
+            "time": "2013-01-12 09:32:44",
             "bin": [
                 "bin/doctrine",
                 "bin/doctrine.php"
@@ -249,12 +249,12 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.4.x-dev"
+                    "dev-master": "2.3.x-dev"
                 }
             },
             "autoload": {
                 "psr-0": {
-                    "Doctrine\\ORM\\": "lib/"
+                    "Doctrine\\ORM": "lib/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -395,23 +395,23 @@
         },
         {
             "name": "symfony/console",
-            "version": "v2.1.6",
+            "version": "2.1.x-dev",
             "target-dir": "Symfony/Component/Console",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console",
-                "reference": "v2.1.6"
+                "reference": "fc27a6b04f5425036764e4bfa96c9c889f34c957"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/Console/archive/v2.1.6.zip",
-                "reference": "v2.1.6",
+                "url": "https://github.com/symfony/Console/archive/fc27a6b04f5425036764e4bfa96c9c889f34c957.zip",
+                "reference": "fc27a6b04f5425036764e4bfa96c9c889f34c957",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
-            "time": "2012-12-13 17:42:00",
+            "time": "2013-01-09 08:51:07",
             "type": "library",
             "autoload": {
                 "psr-0": {
@@ -488,6 +488,7 @@
         "doctrine/orm": 20,
         "doctrine/dbal": 20,
         "symfony/yaml": 20,
+        "symfony/console": 20,
         "gedmo/doctrine-extensions": 20,
         "leafo/lessphp": 20,
         "coffeescript/coffeescript": 20
