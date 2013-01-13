@@ -1,6 +1,0 @@
-rm -Rf ./library/vendor/*
-
-git clone --recursive git://github.com/doctrine/doctrine2.git ./library/vendor/Doctrine
-git clone --recursive git://github.com/guilhermeblanco/zendframework1-doctrine2.git ./library/vendor/Bisna
-
-"guilhermeblanco/zendframework1-doctrine2": "dev-master"
