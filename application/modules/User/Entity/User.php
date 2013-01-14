@@ -1,6 +1,6 @@
 <?php
 
-namespace Entity;
+namespace User\Entity;
 
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="users")
  * @ORM\HasLifecycleCallbacks
  */
-class User extends Core
+class User extends \Core\Entity\Core
 {
     /**
      * @ORM\Id
@@ -57,7 +57,7 @@ class User extends Core
      */
     public function populate($data = array()) 
     {
-        $this->id = (empty($data['id']))? null : $data['id'];
+//        $this->id = (empty($data['id']))? null : $data['id'];
         $this->username = (empty($data['username']))? null : $data['username'];
         $this->email = (empty($data['email']))? null : $data['email'];
         $this->password = (empty($data['password']))? null : $data['password'];

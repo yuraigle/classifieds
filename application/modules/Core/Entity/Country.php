@@ -1,6 +1,6 @@
 <?php
 
-namespace Entity;
+namespace Core\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="countries")
  */
-class Country extends Core
+class Country extends \Core\Entity\Core
 {
     /**
      * @ORM\Id

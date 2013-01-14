@@ -26,7 +26,7 @@ class User_SessionController extends Bisna\Controller\Action
         $user = $this->_getParam("user");
         try
         {
-            $mSession = new User_Model_Session;
+            $mSession = new User_Model_Session();
             $valid = $mSession->authenticate($user['email'], $user['password']);
             $messages = ($valid === true)? array() : $valid;
 

@@ -9,6 +9,5 @@ class Core_IndexController extends Bisna\Controller\Action
 
     public function indexAction()
     {
-
     }
 }

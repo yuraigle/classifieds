@@ -4,11 +4,11 @@
     <div class="form_head">
         <div class="bheadl"></div>
         <div class="bheadr"></div>
-        <h2><?php echo $this->translate('Signup'); ?></h2>
+        <h2><?php echo $this->translate('Login'); ?></h2>
     </div>
     <div class="form_content">
       <?php echo $this->messages(); ?>
-      <?php echo $this->partial("registration/_form.phtml", "user", array("user"=>$this->user)); ?>
+      <?php echo $this->partial("session/_form.phtml", "User", array("user"=>$this->user)); ?>
     </div>
   </div>
   <div class="span3"></div>

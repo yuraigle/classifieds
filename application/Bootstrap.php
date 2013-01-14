@@ -11,9 +11,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $em->getEventManager()->addEventSubscriber(new \Gedmo\Timestampable\TimestampableListener());
         $em->getEventManager()->addEventSubscriber(new \Gedmo\Sluggable\SluggableListener());
 
-        $entityClassLoader = new \Doctrine\Common\ClassLoader('Repository', APPLICATION_PATH . '/../doctrine/Entity');
-        $entityClassLoader->register();
-
+//        $entityClassLoader = new \Doctrine\Common\ClassLoader('Repository', APPLICATION_PATH . '/../doctrine/Entity');
+//        $entityClassLoader->register();
         Zend_Registry::set("em", $em);
     }
 
@@ -31,7 +30,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     protected function _initFrontController()
     {
         $frontController = Zend_Controller_Front::getInstance()
-            ->setDefaultModule("core")
+            ->setDefaultModule("Core")
             ->addModuleDirectory(APPLICATION_PATH . "/modules/")
             ->setParam('prefixDefaultModule', 'true');
 
@@ -55,6 +54,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
                 $path . "/helpers",
                 ucfirst($module) . "_Controller_Helper_"
             );
+
+            Zend_Loader_Autoloader::getInstance()->registerNamespace(ucfirst($module));
         }
     }
 }
