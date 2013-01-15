@@ -1,9 +1,9 @@
 <div class="row-fluid">
-<form action="<?php echo $this->url(array(), "login", true); ?>" method="post" class="form-horizontal">
+<form action="<?php echo $this->url(array(), "signup", true); ?>" method="post" class="form-horizontal">
     <div class="control-group">
         <label class="control-label" for="user_username"><?php echo $this->tr("Username"); ?>:</label>
         <div class="controls">
-            <input type="text" id="user_username" name="user[username]" value="" class="span12" />
+            <input type="text" id="user_username" name="user[username]" value="<?php echo $this->user['username']; ?>" class="span12" />
         </div>
     </div>
     <div class="control-group">

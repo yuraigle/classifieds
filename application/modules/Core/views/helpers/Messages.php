@@ -2,32 +2,48 @@
 
 class Core_View_Helper_Messages extends Zend_View_Helper_Abstract
 {
-    public function messages ()
+    public function messages()
     {
-        if (empty($this->view->messages))
-            return null;
-
-        if (! is_array($this->view->messages))
+        if (! empty($this->view->messages))
         {
-            $messages_html = $this->view->tr($this->view->messages);
-            $class = "alert alert-block";
-        }
-        elseif (count($this->view->messages)==1)
-        {
-            $messages_html = $this->view->tr($this->view->messages[0]);
-            $class = "alert alert-block";
+            // messages set in controller
+            $messages = $this->view->messages;
+            $messages_class = $this->view->messages_class;
         }
         else
         {
-            $messages_html = "<ul>";
-            foreach ($this->view->messages as $msg)
-                $messages_html .= "<li>" . $this->view->tr($msg) . "</li>";
-            $messages_html .= "</ul>";
-            $class = "alert alert-block";
+            // get messages from session
+            $data = Zend_Auth::getInstance()->getStorage()->read();
+            if (! empty($data['messages']))
+            {
+                $messages = $data['messages'];
+                $messages_class = @$data['messages_class'];
+
+                unset($data['messages']);
+                unset($data['messages_class']);
+
+                Zend_Auth::getInstance()->getStorage()->write($data);
+            }
         }
 
-        if ($this->view->messages_class)
-            $class .= " alert-" . $this->view->messages_class;
+        if (empty($messages))
+            return null;
+
+        if (! is_array($messages))
+            $messages_html = $this->view->tr($messages);
+        elseif (count($messages)==1)
+            $messages_html = $this->view->tr($messages[0]);
+        else
+        {
+            $messages_html = "<ul>";
+            foreach ($messages as $msg)
+                $messages_html .= "<li>" . $this->view->tr($msg) . "</li>";
+            $messages_html .= "</ul>";
+        }
+
+        $class = "alert alert-block";
+        if (!empty($messages_class))
+            $class .= " alert-" . $messages_class;
 
         return
             "<div class='$class'>" . 

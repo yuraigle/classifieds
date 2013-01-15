@@ -14,36 +14,39 @@ class User_SessionController extends Bisna\Controller\Action
 
     public function logoutAction()
     {
-        // logout
-        // ...
+        $this->em()->getRepository('\User\Entity\Session')->destroy();
 
         // redirect somewhere
-        $this->_helper->redirector->gotoRoute(array(), "login", true);
+        $this->_helper->messages("LOGGED_OUT_OK", "info");
+        $this->_helper->redirector->gotoRoute(array(), "home", true);
     }
 
     public function checkAction()
     {
-        $user = $this->_getParam("user");
+        $request = $this->_getParam("user");
         try
         {
-            $mSession = new User_Model_Session();
-            $valid = $mSession->authenticate($user['email'], $user['password']);
-            $messages = ($valid === true)? array() : $valid;
+            // check for !empty fields
+            $valid = $this->em()->getRepository('\User\Entity\Session')->validate($request);
 
+            $messages = ($valid===true)? array():$valid;
             if (! empty($messages))
                 throw new Zend_Exception("Validation errors");
 
-            // write uid to session
-            
-            $session->create();
-            $session->set("id", $user->getId());
+            // check for email&password match
+            $user = $this->em()->getRepository('\User\Entity\User')
+                ->authenticate($request['email'], $request['password']);
 
-            $options = array(
-                "status" => "success",
-                "messages" => "Login OK",
-                "messages_class" => "info",
-            );
-            $this->forward("login", null, null, $options);
+            $messages = (is_a($user, '\User\Entity\User'))? array():$user;
+            if (! empty($messages))
+                throw new Zend_Exception("Validation errors");
+
+            // write data in session
+            $data = array("id" => $user->getId());
+            $this->em()->getRepository('\User\Entity\Session')->write($data);
+
+            $this->_helper->messages("LOGGED_IN_OK", "success");
+            $this->_helper->redirector->gotoRoute(array(), "home", true);
         }
         catch (Zend_Exception $e)
         {

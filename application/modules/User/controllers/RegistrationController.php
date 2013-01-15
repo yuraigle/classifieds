@@ -14,27 +14,25 @@ class User_RegistrationController extends Bisna\Controller\Action
 
     public function postAction()
     {
-        $user = $this->_getParam("user");
+        $request = $this->_getParam("user");
         try
         {
-            $uRepo = $this->em()->getRepository('Entity\User');
-            $valid = $uRepo->validate($user);
-            $messages = ($valid === true)? array() : $valid;
+            $valid = $this->em()->getRepository('User\Entity\User')->validate($request);
 
+            $messages = ($valid === true)? array() : $valid;
             if (! empty($messages))
                 throw new Zend_Exception("Validation errors");
 
-            // write uid to session
-            $session = new User_Model_Session;
-            $session->create();
-            $session->set("id", $user->getId());
+            // create user
+            $user = $this->em()->getRepository('User\Entity\User')->create($request);
+            $this->em()->flush();
 
-            $options = array(
-                "status" => "success",
-                "messages" => "Login OK",
-                "messages_class" => "info",
-            );
-            $this->forward("signup", null, null, $options);
+            // write in session
+            $data = array("id" => $user->getId());
+            $this->em()->getRepository('\User\Entity\Session')->write($data);
+
+            $this->_helper->messages("SIGNED_UP_OK", "success");
+            $this->_helper->redirector->gotoRoute(array(), "home", true);
         }
         catch (Zend_Exception $e)
         {

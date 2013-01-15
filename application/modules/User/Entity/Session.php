@@ -5,10 +5,10 @@ namespace User\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="\User_Model_Session")
  * @ORM\Table(name="sessions")
  */
-class Session extends \Core\Entity\Core
+class Session extends \Core\Entity\Core implements \Pike_Session_Entity_Interface
 {
     /**
      * @ORM\Column(name="id", type="string", nullable=false)

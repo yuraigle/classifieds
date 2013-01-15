@@ -1,22 +1,29 @@
 <?php
 
-class User_Model_Session
+class User_Model_Session extends \Doctrine\ORM\EntityRepository
 {
+    public function expr() {}
 
-
-    public static function destroy()
+    public function validate($request)
     {
-        Zend_Auth::getInstance()->getStorage()->clear();
-        Zend_Session::forgetMe();
+        $messages = array();
+
+        if (empty($request['email']))
+            $messages[] = "EMAIL_BLANK";
+        if (empty($request['password']))
+            $messages[] = "PASSWORD_BLANK";
+
+        return ($messages == array())? true : $messages;
     }
 
-    public function set($option, $value)
+    public function write($data)
     {
         $storage = Zend_Auth::getInstance()->getStorage();
-        $storage->write(array_merge(array($option => $value), $storage->read()));
-
-        Zend_Session::rememberMe(1209600); // 2 weeks
+        $storage->write($data);
     }
 
-
+    public function destroy()
+    {
+        Zend_Auth::getInstance()->getStorage()->clear();
+    }
 }

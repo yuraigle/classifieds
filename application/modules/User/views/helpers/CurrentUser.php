@@ -9,8 +9,9 @@ class User_View_Helper_CurrentUser extends Zend_View_Helper_Abstract
         if (empty($data['id']))
             return null;
 
-        $em = Zend_Registry::get("em"); // should not use this in view
+        $em = \Zend_Registry::get("em");
+        $user = $em->find('\User\Entity\User', $data['id']);
 
-        // return $em->find("\Entity\User", $data['id']);
+        return $user;
     }
 }

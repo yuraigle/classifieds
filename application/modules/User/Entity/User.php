@@ -6,7 +6,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="\User_Model_User")
  * @ORM\Table(name="users")
  * @ORM\HasLifecycleCallbacks
  */
