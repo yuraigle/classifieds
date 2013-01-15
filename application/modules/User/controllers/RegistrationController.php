@@ -4,6 +4,13 @@ class User_RegistrationController extends Bisna\Controller\Action
 {
     public function signupAction()
     {
+        // redirect if already logged in
+        if ($this->_helper->currentUser())
+        {
+            $this->_helper->messages("ALREADY_LOGGED_IN");
+            $this->_helper->redirector->gotoRoute(array(), "home", true);
+        }
+
         if($this->getRequest()->getMethod() === 'POST' && !$this->_getParam("status"))
             return $this->forward('post');
 
@@ -44,5 +51,4 @@ class User_RegistrationController extends Bisna\Controller\Action
             $this->forward("signup", null, null, $options);
         }
     }
-
 }

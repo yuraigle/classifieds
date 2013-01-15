@@ -4,6 +4,13 @@ class User_SessionController extends Bisna\Controller\Action
 {
     public function loginAction()
     {
+        // redirect if already logged in
+        if ($this->_helper->currentUser())
+        {
+            $this->_helper->messages("ALREADY_LOGGED_IN");
+            $this->_helper->redirector->gotoRoute(array(), "home", true);
+        }
+
         if($this->getRequest()->getMethod() === 'POST' && !$this->_getParam("status"))
             return $this->forward('check');
 
