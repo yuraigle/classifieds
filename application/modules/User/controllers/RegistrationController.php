@@ -31,7 +31,9 @@ class User_RegistrationController extends Bisna\Controller\Action
                 throw new Zend_Exception("Validation errors");
 
             // create user
-            $user = $this->em()->getRepository('User\Entity\User')->create($request);
+            $user = new \User\Entity\User();
+            $user->populate($request);
+            $this->em()->persist($user);
             $this->em()->flush();
 
             // write in session

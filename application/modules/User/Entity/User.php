@@ -46,28 +46,49 @@ class User extends \Core\Entity\Core
     private $created;
 
     /**
+     * @ORM\Column(type="string")
+     */
+    protected $role;
+
+    /**
      * @ORM\Column(type="boolean")
      */
     protected $deleted;
 
     /**
-     * Populate from an array.
-     *
-     * @param array $data
+     * @ORM\Column(type="string", nullable=true)
      */
-    public function populate($data = array()) 
+    protected $phone;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    protected $description;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $url;
+
+    public function populate($request)
     {
-//        $this->id = (empty($data['id']))? null : $data['id'];
-        $this->username = (empty($data['username']))? null : $data['username'];
-        $this->email = (empty($data['email']))? null : $data['email'];
-        $this->password = (empty($data['password']))? null : $data['password'];
-        $this->deleted = (empty($data['deleted']))? false : $data['deleted'];
+        $fields = array("email", "username", "role", "phone", "description", "url");
+        foreach ($fields as $field)
+            if (isset($request[$field]))
+                $this->{$field} = $request[$field];
+
+        // salt & password set
+        if (isset($request['password']))
+        {
+            $this->salt = md5(rand());
+            $this->password = md5($this->salt . $request['password']);
+        }
     }
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -90,7 +111,7 @@ class User extends \Core\Entity\Core
     /**
      * Get username
      *
-     * @return string 
+     * @return string
      */
     public function getUsername()
     {
@@ -113,7 +134,7 @@ class User extends \Core\Entity\Core
     /**
      * Get email
      *
-     * @return string 
+     * @return string
      */
     public function getEmail()
     {
@@ -136,7 +157,7 @@ class User extends \Core\Entity\Core
     /**
      * Get password
      *
-     * @return string 
+     * @return string
      */
     public function getPassword()
     {
@@ -167,6 +188,52 @@ class User extends \Core\Entity\Core
     }
 
     /**
+     * Set created
+     *
+     * @param \DateTime $created
+     * @return User
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set role
+     *
+     * @param string $role
+     * @return User
+     */
+    public function setRole($role)
+    {
+        $this->role = $role;
+
+        return $this;
+    }
+
+    /**
+     * Get role
+     *
+     * @return string
+     */
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+    /**
      * Set deleted
      *
      * @param boolean $deleted
@@ -190,19 +257,82 @@ class User extends \Core\Entity\Core
     }
 
     /**
-     * Get created
+     * Set phone
      *
-     * @return \DateTime
+     * @param string $phone
+     * @return User
      */
-    public function getCreated()
+    public function setPhone($phone)
     {
-        return $this->created;
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    /**
+     * Get phone
+     *
+     * @return string
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return User
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set url
+     *
+     * @param string $url
+     * @return User
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+
+        return $this;
+    }
+
+    /**
+     * Get url
+     *
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->url;
     }
 
     /**
      * @ORM\PrePersist
      */
-    public function generateSalt()
+    public function defaultFields()
     {
+        if (is_null($this->role))
+            $this->role = "member";
+        if (! $this->deleted)
+            $this->deleted = false;
     }
 }

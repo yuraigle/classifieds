@@ -1,0 +1,16 @@
+<?php echo $this->messages(); ?>
+
+<?php if (! empty($this->user['username'])) : ?>
+<p><b><?php echo $this->tr("USERNAME"); ?>:</b> <?php echo $this->user['username']; ?></p>
+<?php endif; ?>
+<?php if (! empty($this->user['phone'])) : ?>
+<p><b><?php echo $this->tr("PHONE"); ?>:</b> <?php echo $this->user['phone']; ?></p>
+<?php endif; ?>
+<?php if (! empty($this->user['url'])) : ?>
+<p><b><?php echo $this->tr("URL"); ?>:</b> <?php echo $this->user['url']; ?></p>
+<?php endif; ?>
+<?php if (! empty($this->user['description'])) : ?>
+<p><b><?php echo $this->tr("DESCRIPTION"); ?>:</b> <?php echo $this->user['description']; ?></p>
+<?php endif; ?>
+
+<?php echo $this->url(array("action"=>"edit")); ?>

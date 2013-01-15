@@ -67,21 +67,4 @@ class User_Model_User extends \Doctrine\ORM\EntityRepository
 
         return ($messages == array())? true : $messages;
     }
-
-    public function create($request)
-    {
-        $user = new \User\Entity\User();
-        $user->setEmail($request['email']);
-        $user->setUsername($request['username']);
-
-        // salt & password
-        $salt = md5(rand());
-        $user->setSalt($salt);
-        $user->setPassword(md5($salt . $request['password']));
-
-        $user->setDeleted(false);
-
-        $this->_em->persist($user);
-        return $user;
-    }
 }

@@ -18,11 +18,11 @@
 
                 <ul class="nav nav-pills pull-right">
 <?php if (is_null($this->currentUser())) : ?>
-                    <li><a href="<?php echo $this->url(array(), "signup", true); ?>"><?php echo $this->tr("Signup"); ?></a></li>
-                    <li><a href="<?php echo $this->url(array(), "login", true); ?>"><?php echo $this->tr("Login"); ?></a></li>
+                    <li><a href="<?php echo $this->url(array(), "signup", true); ?>"><?php echo $this->tr("SIGNUP"); ?></a></li>
+                    <li><a href="<?php echo $this->url(array(), "login", true); ?>"><?php echo $this->tr("LOGIN"); ?></a></li>
 <?php else : ?>
-                    <li><a href="#"><?php echo $this->currentUser()->getUsername(); ?></a></li>
-                    <li><a href="<?php echo $this->url(array(), "logout", true); ?>"><?php echo $this->tr("Logout"); ?></a></li>
+                    <li><a href="<?php echo $this->url(array("id"=>$this->currentUser()->getId()), "profile", true); ?>"><?php echo $this->currentUser()->getUsername(); ?></a></li>
+                    <li><a href="<?php echo $this->url(array(), "logout", true); ?>"><?php echo $this->tr("LOGOUT"); ?></a></li>
 <?php endif; ?>
                 </ul>
             </div>
