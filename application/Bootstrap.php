@@ -11,8 +11,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $em->getEventManager()->addEventSubscriber(new \Gedmo\Timestampable\TimestampableListener());
         $em->getEventManager()->addEventSubscriber(new \Gedmo\Sluggable\SluggableListener());
 
-//        $entityClassLoader = new \Doctrine\Common\ClassLoader('Repository', APPLICATION_PATH . '/../doctrine/Entity');
-//        $entityClassLoader->register();
         Zend_Registry::set("em", $em);
     }
 
@@ -57,5 +55,18 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
             Zend_Loader_Autoloader::getInstance()->registerNamespace(ucfirst($module));
         }
+    }
+
+    protected function _initApplicationSession() 
+    {
+        // do not store sessions for doctrine cli
+        if (defined('APPLICATION_CLI') && APPLICATION_CLI == 1) {return;}
+
+        $this->bootstrap('doctrine');
+        $this->bootstrap('session');
+        $em = $this->getResource('Doctrine')->getEntityManager();
+    
+        Pike_Session_SaveHandler_Doctrine::setEntitityManager($em);
+        Zend_Session::start();
     }
 }

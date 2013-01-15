@@ -8,11 +8,13 @@
     ],
     "require": {
         "digital-canvas/zend-framework": "dev-master",
+
         "doctrine/orm": "2.3.*@dev",
         "doctrine/dbal": "2.3.*@dev",
         "symfony/yaml": "2.1.*@dev",
         "symfony/console": "2.1.*@dev",
         "gedmo/doctrine-extensions": "2.3.*@dev",
+
         "leafo/lessphp": "dev-master",
         "coffeescript/coffeescript": "dev-master"
     }
