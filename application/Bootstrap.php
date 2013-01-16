@@ -69,4 +69,34 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         Pike_Session_SaveHandler_Doctrine::setEntitityManager($em);
         Zend_Session::start();
     }
+
+    protected function _initZFDebug()
+    {
+        if(APPLICATION_ENV == 'development')
+        {
+            $autoloader = Zend_Loader_Autoloader::getInstance();
+            $autoloader->registerNamespace('ZFDebug');
+            $em = $this->bootstrap('doctrine')->getResource('doctrine')->getEntityManager();
+            $em->getConnection()->getConfiguration()->setSQLLogger(new \Doctrine\DBAL\Logging\DebugStack());
+
+            $options = array(
+                'plugins' => array(
+                    'Variables',
+                    'ZFDebug_Controller_Plugin_Debug_Plugin_Doctrine2'  => array(
+                        'entityManagers' => array($em),
+                    ),
+                    'File' => array('basePath' => APPLICATION_PATH),
+                    'Exception',
+                    'Html',
+                    'Memory',
+                    'Time',
+                )
+            );
+
+            $debug = new ZFDebug_Controller_Plugin_Debug($options);
+            $this->bootstrap('frontController');
+            $frontController = $this->getResource('frontController');
+            $frontController->registerPlugin($debug);
+        }
+    }
 }
