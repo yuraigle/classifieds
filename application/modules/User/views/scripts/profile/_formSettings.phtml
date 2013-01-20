@@ -1,0 +1,37 @@
+<div class="row-fluid">
+<form action="<?php echo $this->url(array("id"=>$this->user['id'], "action"=>"settings"), "profile", true); ?>" method="post" class="">
+    <input type="hidden" id="user_id" name="user[id]" value="<?php echo @$this->user['id']; ?>" />
+
+    <div class="control-group">
+        <label class="control-label" for="user_email"><?php echo $this->tr("EMAIL"); ?>:</label>
+        <div class="controls">
+            <input type="text" id="user_email" name="user[email]" value="<?php echo @$this->user['email']; ?>" class="span12"/>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="user_password"><?php echo $this->tr("NEW_PASSWORD"); ?>:</label>
+        <div class="controls">
+            <input type="password" id="user_password" name="user[password_new]" value="" class="span12"/>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="user_password_confirmation"><?php echo $this->tr("PASSWORD_CONFIRMATION"); ?>:</label>
+        <div class="controls">
+            <input type="password" id="user_password_confirmation" name="user[password_confirmation]" value="" class="span12"/>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <div class="controls">
+            <label class="checkbox">
+                <input<?php if (@$this->user['allow_letters']) echo " checked"; ?> type="checkbox" name="user[allow_letters]" value="1" />
+                <?php echo $this->tr("ALLOW_LETTERS"); ?>
+            </label>
+        </div>
+    </div>
+
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary"><?php echo $this->tr("SAVE_BTN"); ?></button>
+    </div>
+</form>
+</div>

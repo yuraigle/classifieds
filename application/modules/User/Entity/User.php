@@ -70,9 +70,19 @@ class User extends \Core\Entity\Core
      */
     protected $url;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $allow_letters;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $verified;
+
     public function populate($request)
     {
-        $fields = array("email", "username", "role", "phone", "description", "url");
+        $fields = array("email", "username", "role", "phone", "description", "url", "allow_spam", "verified");
         foreach ($fields as $field)
             if (isset($request[$field]))
                 $this->{$field} = $request[$field];
@@ -326,13 +336,66 @@ class User extends \Core\Entity\Core
     }
 
     /**
+     * Set allow_spam
+     *
+     * @param boolean $allowSpam
+     * @return User
+     */
+    public function setAllowLetters($allowLetters)
+    {
+        $this->allow_letters = $allowLetters;
+    
+        return $this;
+    }
+
+    /**
+     * Get allow_spam
+     *
+     * @return boolean 
+     */
+    public function getAllowLetters()
+    {
+        return $this->allow_letters;
+    }
+
+    /**
+     * Set allow_spam
+     *
+     * @param boolean $allowSpam
+     * @return User
+     */
+    public function setVerified($verified)
+    {
+        $this->verified = $verified;
+    
+        return $this;
+    }
+
+    /**
+     * Get allow_spam
+     *
+     * @return boolean 
+     */
+    public function getVerified()
+    {
+        return $this->verified;
+    }
+
+    /**
      * @ORM\PrePersist
      */
     public function defaultFields()
     {
         if (is_null($this->role))
             $this->role = "member";
+
         if (! $this->deleted)
             $this->deleted = false;
+
+        if (is_null($this->allow_letters))
+            $this->allow_letters = true;
+
+        if (is_null($this->verified))
+            $this->allow_letters = false;
     }
 }

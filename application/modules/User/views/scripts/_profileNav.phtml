@@ -1,0 +1,16 @@
+<div class="well">
+<ul class="nav nav-list">
+    <li<?php if ($this->active=="profile") echo " class=\"active\"" ?>>
+        <a href="<?php echo $this->url(array("id"=>$this->currentUser()->getId(), "action"=>"edit"), "profile", true); ?>">
+            <i class="icon-edit"></i>
+            <?php echo $this->tr("PROFILE_LINK"); ?>
+        </a>
+    </li>
+    <li<?php if ($this->active=="settings") echo " class=\"active\"" ?>>
+        <a href="<?php echo $this->url(array("id"=>$this->currentUser()->getId(), "action"=>"settings"), "profile", true); ?>">
+            <i class="icon-cog"></i>
+            <?php echo $this->tr("SETTINGS_LINK"); ?>
+        </a>
+    </li>
+</ul>
+</div>

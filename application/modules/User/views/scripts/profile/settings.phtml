@@ -1,0 +1,12 @@
+<div class="row-fluid">
+    <div class="span4">
+        <?php echo $this->partial("_profileNav.phtml", "User", array("active"=>"settings")); ?>
+    </div>
+
+    <div class="span5">
+        <h2><?php echo $this->translate('EDIT_SETTINGS'); ?></h2>
+        <?php echo $this->messages(); ?>
+        <?php echo $this->partial("profile/_formSettings.phtml", "User", array("user"=>$this->user)); ?>
+    </div>
+    <div class="span3"></div>
+</div>

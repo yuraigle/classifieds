@@ -22,6 +22,14 @@ class User_Model_Session extends \Doctrine\ORM\EntityRepository
         $storage->write($data);
     }
 
+    public function append($key, $value)
+    {
+        $storage = Zend_Auth::getInstance()->getStorage();
+        $data = $storage->read();
+        $data[$key] = $value;
+        $storage->write($data);
+    }
+
     public function destroy()
     {
         Zend_Auth::getInstance()->getStorage()->clear();

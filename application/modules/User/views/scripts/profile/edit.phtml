@@ -1,9 +1,12 @@
 <div class="row-fluid">
-    <div class="span3"></div>
-    <div class="span5">
-        <h2><?php echo $this->translate('EDIT-PROFILE'); ?></h2>
-        <?php echo $this->messages(); ?>
-        <?php echo $this->partial("profile/_form.phtml", "User", array("user"=>$this->user)); ?>
+    <div class="span4">
+        <?php echo $this->partial("_profileNav.phtml", "User", array("active"=>"profile")); ?>
     </div>
-    <div class="span4"></div>
+
+    <div class="span5">
+        <h2><?php echo $this->translate('EDIT_PROFILE'); ?></h2>
+        <?php echo $this->messages(); ?>
+        <?php echo $this->partial("profile/_formProfile.phtml", "User", array("user"=>$this->user)); ?>
+    </div>
+    <div class="span3"></div>
 </div>

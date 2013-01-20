@@ -1,14 +1,14 @@
 <?php
 return array(
     "SITE_TITLE" => "Site title",
-    "SAVE.BTN" => "Save",
+    "SAVE_BTN" => "Save",
 
     // Auth
     "SIGNUP" => "Sign up",
     "LOGIN" => "Sign in",
     "LOGOUT" => "Logout",
-    "LOGIN.BTN" => "Sign in",
-    "SIGNUP.BTN" => "Sign up",
+    "LOGIN_BTN" => "Sign in",
+    "SIGNUP_BTN" => "Sign up",
 
     // Auth errors
     "EMAIL_BLANK" => "Email must be specified",
@@ -24,6 +24,7 @@ return array(
     "EMAIL_TAKEN" => "Email is taken",
     "PASSWORD_TOO_SHORT" => "Password is too short. 4 symbols required",
     "USERNAME_BLANK" => "Username must be specified",
+    "PASSWORDS_DONT_MATCH" => "Passwords don't match",
 
     // Auth messages
     "LOGGED_IN_OK" => "Signed in successfully.",
@@ -32,13 +33,22 @@ return array(
     "ALREADY_LOGGED_IN" => "You are already signed in.",
 
     // User fields
-    "EDIT-PROFILE" => "Edit Profile",
+    "EDIT_PROFILE" => "Edit Profile",
     "USERNAME" => "Username",
     "EMAIL" => "Email",
     "PASSWORD" => "Password",
+    "NEW_PASSWORD" => "New password",
+    "PASSWORD_CONFIRMATION" => "Password confirmation",
     "PHONE" => "Phone",
     "URL" => "Url",
     "DESCRIPTION" => "Description",
 
     "PROFILE_UPDATED_OK" => "Your profile information updated.",
+
+    "EDIT_SETTINGS" => "Edit Settings",
+    "ALLOW_LETTERS" => "I want to recieve letters from site.com",
+
+    // nav links
+    "PROFILE_LINK" => "Profile",
+    "SETTINGS_LINK" => "Settings",
 );
