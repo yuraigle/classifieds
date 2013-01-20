@@ -33,9 +33,11 @@ class User_SessionController extends Bisna\Controller\Action
                 if (! empty($messages))
                     throw new Zend_Exception("Validation errors");
 
-                // write data in session
-                $this->em()->getRepository('\User\Entity\Session')
-                    ->append("id", $user->getId());
+                // write in session
+                $session = $this->_helper->currentSession();
+                $session->setUser($user);
+                $this->em()->persist($session);
+                $this->em()->flush();
 
                 // messages in session
                 $this->_helper->messages("LOGGED_IN_OK", "success");
@@ -54,6 +56,10 @@ class User_SessionController extends Bisna\Controller\Action
     public function logoutAction()
     {
         $this->em()->getRepository('\User\Entity\Session')->destroy();
+        $session = $this->_helper->currentSession();
+        $session->setUser(null);
+        $this->em()->persist($session);
+        $this->em()->flush();
 
         // redirect somewhere
         $this->_helper->messages("LOGGED_OUT_OK", "info");

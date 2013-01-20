@@ -4,14 +4,9 @@ class User_View_Helper_CurrentUser extends Zend_View_Helper_Abstract
 {
     public function currentUser()
     {
-        $data = Zend_Auth::getInstance()->getStorage()->read();
-
-        if (empty($data['id']))
-            return null;
-
         $em = \Zend_Registry::get("em");
-        $user = $em->find('\User\Entity\User', $data['id']);
+        $session = $em->find('\User\Entity\Session', Zend_Session::getId());
 
-        return $user;
+        return (is_null($session))? null : $session->getUser();
     }
 }

@@ -396,6 +396,6 @@ class User extends \Core\Entity\Core
             $this->allow_letters = true;
 
         if (is_null($this->verified))
-            $this->allow_letters = false;
+            $this->verified = false;
     }
 }

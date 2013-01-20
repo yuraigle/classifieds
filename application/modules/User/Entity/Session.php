@@ -26,6 +26,12 @@ class Session extends \Core\Entity\Core implements \Pike_Session_Entity_Interfac
      */
     protected $modified;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="User\Entity\User", cascade={"all"}, fetch="LAZY")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
+     */
+    protected $user;
+
     public function setId($id)
     {
         $this->id = $id;
@@ -55,5 +61,28 @@ class Session extends \Core\Entity\Core implements \Pike_Session_Entity_Interfac
     public static function getModifiedFieldName()
     {
         return 'modified';
+    }
+
+    /**
+     * Set user
+     *
+     * @param \User\Entity\User $user
+     * @return Session
+     */
+    public function setUser(\User\Entity\User $user = null)
+    {
+        $this->user = $user;
+    
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \User\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

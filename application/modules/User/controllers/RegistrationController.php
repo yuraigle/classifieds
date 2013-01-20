@@ -28,11 +28,12 @@ class User_RegistrationController extends Bisna\Controller\Action
                 $user = new User\Entity\User();
                 $user->populate($request);
                 $this->em()->persist($user);
-                $this->em()->flush();
 
                 // write in session
-                $this->em()->getRepository('\User\Entity\Session')
-                    ->append("id", $user->getId());
+                $session = $this->_helper->currentSession();
+                $session->setUser($user);
+                $this->em()->persist($session);
+                $this->em()->flush();
 
                 // messages in session
                 $this->_helper->messages("SIGNED_UP_OK", "success");
