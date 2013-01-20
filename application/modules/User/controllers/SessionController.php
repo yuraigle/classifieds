@@ -40,8 +40,18 @@ class User_SessionController extends Bisna\Controller\Action
                 $this->em()->flush();
 
                 // messages in session
-                $this->_helper->messages("LOGGED_IN_OK", "success");
-                $this->_helper->redirector->gotoRoute(array(), "home", true);
+                $session->write("messages", "LOGGED_IN_OK");
+                $session->write("messages_class", "success");
+
+                // get redirect link from session
+                $return_url = $session->read("return_url");
+                if (! empty($return_url))
+                {
+                    $session->write("return_url", null);
+                    return $this->redirect(urldecode($return_url));
+                }
+                else
+                    return $this->_helper->redirector->gotoRoute(array(), "home", true);
             }
             catch (Zend_Exception $e)
             {
@@ -61,8 +71,11 @@ class User_SessionController extends Bisna\Controller\Action
         $this->em()->persist($session);
         $this->em()->flush();
 
-        // redirect somewhere
-        $this->_helper->messages("LOGGED_OUT_OK", "info");
+        // messages in session
+        $session->write("messages", "LOGGED_OUT_OK");
+        $session->write("messages_class", "info");
+
+        // redirect home
         $this->_helper->redirector->gotoRoute(array(), "home", true);
     }
 }

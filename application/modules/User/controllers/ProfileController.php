@@ -42,8 +42,12 @@ class User_ProfileController extends Bisna\Controller\Action
                 $this->em()->persist($user);
                 $this->em()->flush();
 
-                $this->_helper->messages("PROFILE_UPDATED_OK", "success");
-                $this->_helper->redirector
+                // messages in session
+                $session = $this->_helper->currentSession();
+                $session->write("messages", "PROFILE_UPDATED_OK");
+                $session->write("messages_class", "success");
+
+                return $this->_helper->redirector
                     ->gotoRoute(array("id"=>$request['id']), "profile", true);
             }
             catch (Zend_Exception $e)
@@ -113,7 +117,11 @@ class User_ProfileController extends Bisna\Controller\Action
                 $this->em()->persist($user);
                 $this->em()->flush();
 
-                $this->_helper->messages("PROFILE_UPDATED_OK", "success");
+                // messages in session
+                $session = $this->_helper->currentSession();
+                $session->write("messages", "PROFILE_UPDATED_OK");
+                $session->write("messages_class", "success");
+
                 $this->_helper->redirector
                     ->gotoRoute(array("id"=>$request['id']), "profile", true);
             }

@@ -4,12 +4,14 @@ class User_Controller_Helper_CheckMember extends Zend_Controller_Action_Helper_A
 {
     public function checkMember($role = "member")
     {
-        $user = $this->_actionController->getHelper("currentUser")->direct();
+        $session = $this->_actionController->getHelper("currentSession")->direct();
 
-        if (is_null($user))
+        if (is_null($session->getUser()))
         {
-            $this->_actionController->getHelper("messages")->direct("UNAUTHENTICATED", "error");
-            // TODO: store current url in session
+            $session->write("messages", "UNAUTHENTICATED");
+            $session->write("messages_class", "error");
+            $session->write("return_url", urlencode($this->getRequest()->getRequestUri()));
+
             $this->_actionController->getHelper("redirector")->gotoRoute(array(), "login", true);
         }
     }

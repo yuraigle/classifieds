@@ -36,7 +36,9 @@ class User_RegistrationController extends Bisna\Controller\Action
                 $this->em()->flush();
 
                 // messages in session
-                $this->_helper->messages("SIGNED_UP_OK", "success");
+                $session->write("messages", "SIGNED_UP_OK");
+                $session->write("messages_class", "success");
+
                 $this->_helper->redirector->gotoRoute(array(), "home", true);
             }
             catch (Zend_Exception $e)

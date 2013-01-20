@@ -4,11 +4,13 @@ class User_Controller_Helper_CheckOwner extends Zend_Controller_Action_Helper_Ab
 {
     public function checkOwner($uid)
     {
-        $user = $this->_actionController->getHelper("currentUser")->direct();
+        $session = $this->_actionController->getHelper("currentSession")->direct();
+        $user = $session->getUser();
 
-        if ($user->getId() != $uid /* and role != admin|moder? */)
+        if ($user->getId() != $uid && ! in_array($user->getRole(), array("admin", "moderator")))
         {
-            $this->_actionController->getHelper("messages")->direct("NOT_ALLOWED", "error");
+            $session->write("messages", "NOT_ALLOWED");
+            $session->write("messages_class", "error");
             $this->_actionController->getHelper("redirector")->gotoRoute(array(), "home", true);
         }
     }
