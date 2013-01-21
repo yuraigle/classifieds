@@ -15,6 +15,8 @@ cp -Rf ../externals/img/* ../public/img/
 
 # compile less, move to public
 php ${LESSPHP_PATH} -f=compressed ../assets/less/core.less ../public/css/core.min.css
+php ${LESSPHP_PATH} -f=compressed ../assets/less/admin.less ../public/css/admin.min.css
+
 # compile coffee, move to public
 php ./coffee.php
 # compress scripts, move to public

@@ -8,10 +8,55 @@
         </div>
         <div class="form_content">
             <?php echo $this->messages(); ?>
-            <?php echo $this->partial("registration/_form.phtml", "User", array("user"=>$this->user)); ?>
+            
+            <div class="row-fluid">
+            <form action="<?php echo $this->url(array(), "signup", true); ?>" method="post" class="form-horizontal">
+                <div class="control-group">
+                    <label class="control-label" for="user_username"><?php echo $this->tr("USERNAME"); ?>:</label>
+                    <div class="controls">
+                        <input type="text" id="user_username" name="user[username]" value="<?php echo $this->user['username']; ?>" class="span12" />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="user_email"><?php echo $this->tr("EMAIL"); ?>:</label>
+                    <div class="controls">
+                        <input type="text" id="user_email" name="user[email]" value="<?php echo $this->user['email']; ?>" class="span12"/>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="user_password"><?php echo $this->tr("PASSWORD"); ?>:</label>
+                    <div class="controls">
+                        <input type="password" id="user_password" name="user[password]" value="" class="span12" />
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="user_captcha_input"><?php echo $this->tr("CAPTCHA"); ?>:</label>
+                    <div class="controls">
+                        <img id="captcha_image" src="<?php echo $this->baseUrl() . "/captcha/" . $this->captcha_id . ".png"; ?>" />
+                        <input type="hidden" id="user_captcha_id" name="user[captcha][id]"  value="<?php echo $this->captcha_id; ?>" class="span12"/>
+                        <input type="text" id="user_captcha_input" name="user[captcha][input]"  value="" class="span12"/>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary"><?php echo $this->tr("SIGNUP_BTN"); ?></button>
+                </div>
+            </form>
+            </div>
+
         </div>
         <div class="bendl"></div>
         <div class="bendr"></div>
     </div>
     <div class="span3"></div>
 </div>
+
+<?php $this->headScript()->captureStart(); ?>
+$("#captcha_image").click(function(){
+    $.post("/user/registration/recaptcha", {}, function(data){
+        $("#captcha_image").attr("src", "<?php echo $this->baseUrl() . "/captcha/"?>"+data.id+".png");
+        $("#user_captcha_id").val(data.id);
+    }, "json");
+});
+<?php $this->headScript()->captureEnd(); ?>

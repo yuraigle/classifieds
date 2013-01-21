@@ -13,11 +13,30 @@ class User_ProfileController extends Bisna\Controller\Action
         $this->view->user = $user->getArrayCopy();
     }
 
-    // edit user profile
+    // show profile form
     public function editAction()
     {
         $id = $this->_getParam("id");
         $user = $this->em()->find('\User\Entity\User', $id);
+
+        // access
+        if (is_null($user)) {throw new Zend_Exception("ERROR", 404);}
+        $this->_helper->checkMember(); // logged in
+        $this->_helper->checkOwner($id); // is profile owner || is admin
+
+        if($this->getRequest()->getMethod() === 'POST' && !$this->_getParam("status"))
+            $this->forward("put", null, null, 
+                array("id"=>$id, "user"=>$this->_getParam("user")));
+
+        $this->view->user = $this->_getParam("user", $user->getArrayCopy());
+    }
+
+    // update profile info
+    public function putAction()
+    {
+        $id = $this->_getParam("id");
+        $user = $this->em()->find('\User\Entity\User', $id);
+        $session = $this->_helper->currentSession();
 
         // access
         if (is_null($user)) {throw new Zend_Exception("ERROR", 404);}
@@ -42,22 +61,35 @@ class User_ProfileController extends Bisna\Controller\Action
                 $this->em()->persist($user);
                 $this->em()->flush();
 
-                // messages in session
-                $session = $this->_helper->currentSession();
-                $session->write("messages", "PROFILE_UPDATED_OK");
-                $session->write("messages_class", "success");
-
-                return $this->_helper->redirector
-                    ->gotoRoute(array("id"=>$request['id']), "profile", true);
+                // json context
+                if ($this->_getParam("format") == "json")
+                {
+                    $session->write("messages_class", "success");
+                    $session->write("messages", "USER_PROFILE_UPDATED_OK");
+                    return $this->_helper->json(array("status"=>"OK"));
+                }
+                else
+                {
+                    $session->write("messages_class", "success");
+                    $session->write("messages", "PROFILE_UPDATED_OK");
+                    return $this->_helper->redirector->gotoRoute(
+                        array("id"=>$request['id']), "profile", true
+                    );
+                }
             }
             catch (Zend_Exception $e)
             {
-                $this->view->messages = $messages;
-                $this->view->messages_class = "error";
+                $session->write("messages", $messages);
+                $session->write("messages_class", "error");
+
+                if ($this->_getParam("format") == "json")
+                    return $this->_helper->json(array("status"=>"ERROR",
+                        "messages"=>$this->view->messages()));
+                else
+                    return $this->forward("edit", null, null,
+                        array("status"=>"ERROR"));
             }
         }
-
-        $this->view->user = $this->_getParam("user", $user->getArrayCopy());
     }
 
     public function settingsAction()

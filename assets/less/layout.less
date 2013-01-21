@@ -1,3 +1,6 @@
+@header_height: 45px;
+@footer_height: 18px;
+
 html, body {
   height: 100%;
 }
@@ -6,38 +9,32 @@ html, body {
   min-height: 100%;
   height: auto !important;
   height: 100%;
-  margin: 0 auto -76px;
+  margin: 0 auto -1-2*@footer_height;
 }
 
 .push {
-  height: 76px;
+  height: 1+2*@footer_height;
 }
-
-@footer_height: 50px;
 
 .footer {
   height: @footer_height;
   line-height: @footer_height;
-  margin-top: 15px;
+  padding: @footer_height/2 0 @footer_height/2 0;
   border-top: 1px solid #ddd;
-  padding: 10px 0 0 0;
-  // background: url(../img/logo-footer.png) no-repeat right bottom;
   overflow: hidden;
 
   ul {
     list-style: none;
     li {
       display: inline;
-      margin: 0 15px 0 0;
+      margin-right: 20px;
     }
   }
 }
 
-@header_height: 65px;
-
 .header {
   height: @header_height;
-  border-bottom: 1px solid #ddd;
+  // border-bottom: 1px solid #ddd;
   margin-bottom: 15px;
   overflow: hidden;
 
@@ -67,7 +64,7 @@ html, body {
     height: 100%;
     li {
       a {
-        line-height: 65px;
+        line-height: @header_height;
         display: inline;
       }
     }

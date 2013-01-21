@@ -195,6 +195,8 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Doctrine2
     	} else if ($value instanceof DateTime) {
     		// Try to accommodate for Doctrine's use of more advanced data types
     		$value = "'" . $value->format('c') . "'";
+        } elseif (is_array($value)) {
+            $value = "'" . join("', '", $value) . "'";
     	} else {
     		$value = "Object of type '" . get_class($value) . "'";
     	}

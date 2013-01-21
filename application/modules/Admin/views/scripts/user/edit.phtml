@@ -1,0 +1,48 @@
+<div class="modal fade" id="_admin_user_edit" style="display: none;">
+    <div class="modal-header">
+        <button class="close" data-dismiss="modal">×</button>
+        <h3><?php echo $this->translate('EDIT_PROFILE'); ?></h3>
+    </div>
+    <div class="modal-body">
+        <div class="row-fluid">
+        <div id="_admin_user_edit_messages"></div>
+        <form action="<?php echo $this->url(array("action"=>"put", "id"=>$this->user['id'], "format"=>"json"), "profile", true); ?>" id="_admin_user_edit_form" method="post">
+            <input type="hidden" id="user_id" name="user[id]" value="<?php echo @$this->user['id']; ?>" />
+            <div class="control-group">
+                <label class="control-label" for="user_username"><?php echo $this->tr("USERNAME"); ?>:</label>
+                <div class="controls">
+                    <input type="text" id="user_username" name="user[username]" value="<?php echo @$this->user['username']; ?>" class="span12" />
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="user_email"><?php echo $this->tr("EMAIL"); ?>:</label>
+                <div class="controls">
+                    <input type="text" id="user_email" name="user[email]" value="<?php echo @$this->user['email']; ?>" class="span12"/>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="user_phone"><?php echo $this->tr("PHONE"); ?>:</label>
+                <div class="controls">
+                    <input type="text" id="user_phone" name="user[phone]" value="<?php echo @$this->user['phone']; ?>" class="span12"/>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="user_url"><?php echo $this->tr("URL"); ?>:</label>
+                <div class="controls">
+                    <input type="text" id="user_url" name="user[url]" value="<?php echo @$this->user['url']; ?>" class="span12"/>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="user_description"><?php echo $this->tr("DESCRIPTION"); ?>:</label>
+                <div class="controls">
+                    <textarea rows="5" id="user_description" name="user[description]" class="span12"><?php echo @$this->user['description']; ?></textarea>
+                </div>
+            </div>
+        </form>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal"><?php echo $this->tr("BACK_BTN"); ?></a>
+        <a class="btn btn-primary" id="_admin_user_edit_submit"><?php echo $this->tr("SAVE_BTN"); ?></a>
+    </div>
+</div>

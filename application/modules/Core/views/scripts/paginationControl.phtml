@@ -1,0 +1,17 @@
+<?php if ($this->pageCount > 1): ?>
+<div class="pagination pagination-centered">
+    <ul>
+        <li<?php if (empty($this->previous)) echo " class='disabled'" ?>>
+            <a href="<?= $this->url(array('page' => $this->previous)); ?>">«</a>
+        </li>
+        <?php foreach ($this->pagesInRange as $page): // Numbered page links ?>
+        <li<?php if ($page == $this->current) echo " class='active'" ?>>
+            <a href="<?= $this->url(array('page' => $page)); ?>"><?php echo $page; ?></a>
+        </li>
+        <?php endforeach; ?>
+        <li<?php if (empty($this->next)) echo " class='disabled'" ?>>
+            <a href="<?= $this->url(array('page' => $this->next)); ?>">»</a>
+        </li>
+    </ul>
+</div>
+<?php endif; ?>

@@ -89,7 +89,12 @@ class Session extends \Core\Entity\Core implements \Pike_Session_Entity_Interfac
     public function write($key, $value)
     {
         $data = \Zend_Auth::getInstance()->getStorage()->read();
-        $data[$key] = $value;
+
+        if (is_null($value))
+            unset($data[$key]);
+        else
+            $data[$key] = $value;
+
         \Zend_Auth::getInstance()->getStorage()->write($data);
     }
 

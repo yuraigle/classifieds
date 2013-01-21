@@ -1,0 +1,32 @@
+<?php echo $this->messages(); ?>
+
+<?php echo $this->paginationControl($this->paginator); ?>
+
+<table class="table table-bordered table-condensed table-hover">
+    <thead>
+    <tr>
+        <th><?php echo $this->tr("ID"); ?></th>
+        <th><?php echo $this->tr("EMAIL"); ?></th>
+        <th><?php echo $this->tr("USERNAME"); ?></th>
+        <th><?php echo $this->tr("CREATED"); ?></th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($this->paginator as $user) : ?>
+    <tr>
+        <td><?php echo $user->getId(); ?></td>
+        <td><?php echo $user->getEmail(); ?></td>
+        <td><?php echo $user->getUsername(); ?></td>
+        <td><?php echo $user->getCreated()->format("Y-m-d"); ?></td>
+        <td class="tiny">
+            <?php echo $this->partial("user/_userOptions.phtml", "Admin", array("user"=>$user)); ?>
+        </td>
+    </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table>
+
+<?php echo $this->paginationControl($this->paginator); ?>
+
+<div id="modal"></div>

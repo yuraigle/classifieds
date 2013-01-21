@@ -2,6 +2,18 @@
 
 class User_RegistrationController extends Bisna\Controller\Action
 {
+    private function _getCaptcha()
+    {
+        $captcha = new Zend_Captcha_Image();
+        $captcha->setFont(APPLICATION_PATH . '/../assets/fonts/FreeMono.ttf');
+        $captcha->setImgDir(APPLICATION_PATH . '/../public/captcha/');
+        $captcha->setTimeout(300); // 5min
+        $captcha->setWordlen(4);
+        $captcha->setWidth(280);
+
+        return $captcha;
+    }
+
     public function signupAction()
     {
         // redirect if already logged in
@@ -10,6 +22,8 @@ class User_RegistrationController extends Bisna\Controller\Action
             $this->_helper->messages("ALREADY_LOGGED_IN");
             $this->_helper->redirector->gotoRoute(array(), "home", true);
         }
+
+        $captcha = $this->_getCaptcha();
 
         if($this->getRequest()->getMethod() === 'POST')
         {
@@ -21,6 +35,10 @@ class User_RegistrationController extends Bisna\Controller\Action
                     ->validate($request);
 
                 $messages = ($valid === true)? array() : $valid;
+
+                if (! $captcha->isValid($request['captcha']))
+                    $messages[] = "WRONG_CAPTCHA";
+
                 if (! empty($messages))
                     throw new Zend_Exception("Validation errors");
 
@@ -49,5 +67,13 @@ class User_RegistrationController extends Bisna\Controller\Action
         }
 
         $this->view->user = $user = $this->_getParam("user");
+        $this->view->captcha_id = $captcha->generate();
+    }
+
+    public function recaptchaAction()
+    {
+        $this->_helper->json(array(
+            "id" => $this->_getCaptcha()->generate(),
+        ));
     }
 }

@@ -2,6 +2,7 @@
 return array(
     "SITE_TITLE" => "Site title",
     "SAVE_BTN" => "Save",
+    "BACK_BTN" => "Back",
 
     // Auth
     "SIGNUP" => "Sign up",
@@ -25,12 +26,15 @@ return array(
     "PASSWORD_TOO_SHORT" => "Password is too short. 4 symbols required",
     "USERNAME_BLANK" => "Username must be specified",
     "PASSWORDS_DONT_MATCH" => "Passwords don't match",
+    "WRONG_CAPTCHA" => "Captcha value is wrong",
 
     // Auth messages
     "LOGGED_IN_OK" => "Signed in successfully.",
     "SIGNED_UP_OK" => "Welcome! You have signed up successfully.",
     "LOGGED_OUT_OK" => "Signed out successfully.",
     "ALREADY_LOGGED_IN" => "You are already signed in.",
+    "PROFILE_UPDATED_OK" => "Your profile information updated.",
+    "USER_PROFILE_UPDATED_OK" => "User profile information updated.",
 
     // User fields
     "EDIT_PROFILE" => "Edit Profile",
@@ -42,8 +46,10 @@ return array(
     "PHONE" => "Phone",
     "URL" => "Url",
     "DESCRIPTION" => "Description",
+    "CAPTCHA" => "Captcha",
+    "CLICK_FOR_RENEW" => "Click here for renew image",
+    "CREATED" => "Created",
 
-    "PROFILE_UPDATED_OK" => "Your profile information updated.",
 
     "EDIT_SETTINGS" => "Edit Settings",
     "ALLOW_LETTERS" => "I want to recieve letters from site.com",
@@ -51,4 +57,8 @@ return array(
     // nav links
     "PROFILE_LINK" => "Profile",
     "SETTINGS_LINK" => "Settings",
+
+    "EDIT" => "Edit",
+    "REMOVE" => "Remove",
+    "VIEW" => "View",
 );
