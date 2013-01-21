@@ -7,7 +7,10 @@ class User_SessionController extends Bisna\Controller\Action
         // redirect if already logged in
         if ($this->_helper->currentUser())
         {
-            $this->_helper->messages("ALREADY_LOGGED_IN");
+            $session = $this->_helper->currentSession();
+            $session->write("messages", "ALREADY_LOGGED_IN");
+            $session->write("messages_class", null);
+
             $this->_helper->redirector->gotoRoute(array(), "home", true);
         }
 

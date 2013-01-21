@@ -16,6 +16,8 @@
         "gedmo/doctrine-extensions": "2.3.*@dev",
 
         "leafo/lessphp": "dev-master",
-        "coffeescript/coffeescript": "dev-master"
+        "coffeescript/coffeescript": "dev-master",
+
+        "fzaninotto/faker": "1.1.*@dev"
     }
 }

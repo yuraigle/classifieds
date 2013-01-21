@@ -1,5 +1,5 @@
 {
-    "hash": "3ad70b28a64abc4e2a138ec4391a7bf1",
+    "hash": "0fe52f5478f607bc8ae4dd5203948f99",
     "packages": [
         {
             "name": "coffeescript/coffeescript",
@@ -161,19 +161,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal",
-                "reference": "4c33f633c48eeafe3408b308f6fc51743a21a3b7"
+                "reference": "fd45c6f6baa618d871f3201fabe76df5043abb1e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/doctrine/dbal/archive/4c33f633c48eeafe3408b308f6fc51743a21a3b7.zip",
-                "reference": "4c33f633c48eeafe3408b308f6fc51743a21a3b7",
+                "url": "https://github.com/doctrine/dbal/archive/fd45c6f6baa618d871f3201fabe76df5043abb1e.zip",
+                "reference": "fd45c6f6baa618d871f3201fabe76df5043abb1e",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2",
                 "doctrine/common": "2.3.*"
             },
-            "time": "2013-01-07 20:03:43",
+            "time": "2013-01-20 11:50:36",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -224,12 +224,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/doctrine/doctrine2.git",
-                "reference": "6829c464e88cccd7a2a0714e42e95f3930b38e37"
+                "reference": "fdd0af34e6fced967b8751bc3e4792c11ef86d57"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/doctrine/doctrine2/archive/6829c464e88cccd7a2a0714e42e95f3930b38e37.zip",
-                "reference": "6829c464e88cccd7a2a0714e42e95f3930b38e37",
+                "url": "https://github.com/doctrine/doctrine2/archive/fdd0af34e6fced967b8751bc3e4792c11ef86d57.zip",
+                "reference": "fdd0af34e6fced967b8751bc3e4792c11ef86d57",
                 "shasum": ""
             },
             "require": {
@@ -241,7 +241,7 @@
             "suggest": {
                 "symfony/yaml": "If you want to use YAML Metadata Mapping Driver"
             },
-            "time": "2013-01-12 09:32:44",
+            "time": "2013-01-20 19:35:21",
             "bin": [
                 "bin/doctrine",
                 "bin/doctrine.php"
@@ -289,17 +289,62 @@
             ]
         },
         {
+            "name": "fzaninotto/faker",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fzaninotto/Faker",
+                "reference": "9d7bf6177249873d978d85a170b67b7049032b2d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/fzaninotto/Faker/archive/9d7bf6177249873d978d85a170b67b7049032b2d.zip",
+                "reference": "9d7bf6177249873d978d85a170b67b7049032b2d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "time": "2013-01-12 14:20:46",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Faker": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "François Zaninotto"
+                }
+            ],
+            "description": "Faker is a PHP library that generates fake data for you.",
+            "keywords": [
+                "faker",
+                "fixtures",
+                "data"
+            ]
+        },
+        {
             "name": "gedmo/doctrine-extensions",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "git://github.com/l3pp4rd/DoctrineExtensions.git",
-                "reference": "0d4393d25a0ff6074b5163311e058d7f3cbccf35"
+                "reference": "baa42fda5607978d70040b9f38b6b3a13823c903"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/l3pp4rd/DoctrineExtensions/archive/0d4393d25a0ff6074b5163311e058d7f3cbccf35.zip",
-                "reference": "0d4393d25a0ff6074b5163311e058d7f3cbccf35",
+                "url": "https://github.com/l3pp4rd/DoctrineExtensions/archive/baa42fda5607978d70040b9f38b6b3a13823c903.zip",
+                "reference": "baa42fda5607978d70040b9f38b6b3a13823c903",
                 "shasum": ""
             },
             "require": {
@@ -319,7 +364,7 @@
                 "doctrine/mongodb": ">=1.0.0",
                 "doctrine/mongodb-odm": ">=1.0.0-BETA7"
             },
-            "time": "2013-01-11 05:15:19",
+            "time": "2013-01-18 18:21:44",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -400,18 +445,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console",
-                "reference": "fc27a6b04f5425036764e4bfa96c9c889f34c957"
+                "reference": "v2.1.7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/Console/archive/fc27a6b04f5425036764e4bfa96c9c889f34c957.zip",
-                "reference": "fc27a6b04f5425036764e4bfa96c9c889f34c957",
+                "url": "https://github.com/symfony/Console/archive/v2.1.7.zip",
+                "reference": "v2.1.7",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
-            "time": "2013-01-09 08:51:07",
+            "time": "2013-01-17 15:20:05",
             "type": "library",
             "autoload": {
                 "psr-0": {
@@ -442,18 +487,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml",
-                "reference": "7dd042765a3299d7cb1627ca9e6ffdb59fc54058"
+                "reference": "v2.1.7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/Yaml/archive/7dd042765a3299d7cb1627ca9e6ffdb59fc54058.zip",
-                "reference": "7dd042765a3299d7cb1627ca9e6ffdb59fc54058",
+                "url": "https://github.com/symfony/Yaml/archive/v2.1.7.zip",
+                "reference": "v2.1.7",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
-            "time": "2013-01-09 08:51:07",
+            "time": "2013-01-17 21:21:51",
             "type": "library",
             "autoload": {
                 "psr-0": {
@@ -491,6 +536,7 @@
         "symfony/console": 20,
         "gedmo/doctrine-extensions": 20,
         "leafo/lessphp": 20,
-        "coffeescript/coffeescript": 20
+        "coffeescript/coffeescript": 20,
+        "fzaninotto/faker": 20
     }
 }

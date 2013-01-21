@@ -4,8 +4,8 @@
 defined('APPLICATION_PATH')
     || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../application'));
 
- define('APPLICATION_ENV', 'development');
-//define('APPLICATION_ENV', 'production');
+ // define('APPLICATION_ENV', 'development');
+define('APPLICATION_ENV', 'production');
 
 // Ensure library/ is on include_path
 set_include_path(implode(PATH_SEPARATOR, array(
