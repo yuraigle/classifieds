@@ -68,6 +68,11 @@ abstract class BaseTestCase extends Zend_Test_PHPUnit_ControllerTestCase
         $this->clearFakeSession();
     }
 
+    public function currentUser()
+    {
+        return Zend_Controller_Action_HelperBroker::getExistingHelper('currentUser')->direct();
+    }
+
     /*
      * Fake session in DB
      */

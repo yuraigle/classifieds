@@ -4,10 +4,11 @@ class User_SessionController extends Bisna\Controller\Action
 {
     public function loginAction()
     {
+        $session = $this->_helper->currentSession();
+
         // redirect if already logged in
         if ($this->_helper->currentUser())
         {
-            $session = $this->_helper->currentSession();
             $session->write("messages", "ALREADY_LOGGED_IN");
             $session->write("messages_class", null);
 
@@ -37,7 +38,6 @@ class User_SessionController extends Bisna\Controller\Action
                     throw new Zend_Exception("Validation errors");
 
                 // write in session
-                $session = $this->_helper->currentSession();
                 $session->setUser($user);
                 $this->em()->persist($session);
                 $this->em()->flush();
