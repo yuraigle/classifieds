@@ -5,27 +5,26 @@ class User_SessionControllerTest extends BaseTestCase
     public function loginUser($user, $password)
     {
         $this->request->setMethod('POST')
-                      ->setPost(array("user" => array(
-                            'email' => $user,
-                            'password' => $password,
-                        )));
+                      ->setPost(array('user' => array('email' => $user, 'password' => $password)));
+
         $this->dispatch('/login');
+    }
 
+    public function testFakeSessionStarted()
+    {
+        $this->assertTrue(strlen(Zend_Session::getId())>0);
+    }
+
+    public function testValidLoginRedirectsToHome()
+    {
+        $this->loginUser('kai@li.ru', 'asdasd');
         $this->assertRedirectTo('/');
- 
-        $this->resetRequest()
-             ->resetResponse();
- 
-        $this->request->setPost(array());
     }
 
-    public function testSessionStarted()
+    public function testInvalidLogin()
     {
-        $this->assertTrue(Zend_Session::getId());
-    }
+        $this->loginUser('kai@li.ru', '');
 
-    public function testValidLogin()
-    {
-//        $this->loginUser('kai@li.ru', 'asdasd');
+        print_r($this->_response);
     }
 }

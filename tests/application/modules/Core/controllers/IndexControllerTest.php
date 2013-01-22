@@ -8,14 +8,18 @@ class Core_IndexControllerTest extends BaseTestCase
         parent::setUp();
     }
 
-    public function testHomePage()
-    {
-        $this->dispatch('/');
-    }
-
     public function testDoctrineWorks()
     {
         $this->assertTrue(!is_null($this->em()));
+    }
+
+    public function testHomePage()
+    {
+        $this->dispatch('/');
+
+        $this->assertModule('Core');
+        $this->assertController('index');
+        $this->assertAction('index');
     }
 
     public function testCanAddUsers()

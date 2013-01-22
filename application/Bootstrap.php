@@ -91,7 +91,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $this->bootstrap('doctrine');
         $this->bootstrap('session');
         $em = $this->getResource('Doctrine')->getEntityManager();
-    
+
         Pike_Session_SaveHandler_Doctrine::setEntitityManager($em);
         Zend_Session::start();
     }

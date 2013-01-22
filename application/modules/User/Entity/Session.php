@@ -42,7 +42,7 @@ class Session extends \Core\Entity\Core implements \Pike_Session_Entity_Interfac
         return $this->data;
     }
 
-    public function setdata($data)
+    public function setData($data)
     {
         $this->data = $data;
         return $this;

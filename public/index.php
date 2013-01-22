@@ -4,8 +4,9 @@
 defined('APPLICATION_PATH')
     || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../application'));
 
- // define('APPLICATION_ENV', 'development');
-define('APPLICATION_ENV', 'production');
+// Define application environment
+defined('APPLICATION_ENV')
+    || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'development'));
 
 // Ensure library/ is on include_path
 set_include_path(implode(PATH_SEPARATOR, array(
@@ -21,7 +22,6 @@ require APPLICATION_PATH . '/../vendor/autoload.php';
 
 // Zend_Application
 require_once 'Zend/Application.php';
-
 
 // Create application, bootstrap, and run
 $application = new Zend_Application(
