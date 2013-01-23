@@ -1,5 +1,5 @@
 {
-    "hash": "0fe52f5478f607bc8ae4dd5203948f99",
+    "hash": "b2a94370a2bbde94d026d27d4f23f5a8",
     "packages": [
         {
             "name": "coffeescript/coffeescript",
@@ -439,6 +439,39 @@
             "homepage": "http://leafo.net/lessphp/"
         },
         {
+            "name": "reneaigle/zfdebug",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/reneaigle/ZFDebug.git",
+                "reference": "6d45941c05861da269e202bf3d0a34d2d05361f0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/reneaigle/ZFDebug/archive/6d45941c05861da269e202bf3d0a34d2d05361f0.zip",
+                "reference": "6d45941c05861da269e202bf3d0a34d2d05361f0",
+                "shasum": ""
+            },
+            "require": {
+                "digital-canvas/zend-framework": "dev-master"
+            },
+            "time": "2013-01-23 23:27:18",
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "ZFDebug": "library/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "include-path": [
+                "library/"
+            ],
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "description": "Debug for Zend Framework 1 with Doctrine2 plugin"
+        },
+        {
             "name": "symfony/console",
             "version": "2.1.x-dev",
             "target-dir": "Symfony/Component/Console",
@@ -487,18 +520,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml",
-                "reference": "v2.1.7"
+                "reference": "fef0f818ba06a69da9a976592bde7b951de33a0f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/Yaml/archive/v2.1.7.zip",
-                "reference": "v2.1.7",
+                "url": "https://github.com/symfony/Yaml/archive/fef0f818ba06a69da9a976592bde7b951de33a0f.zip",
+                "reference": "fef0f818ba06a69da9a976592bde7b951de33a0f",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
-            "time": "2013-01-17 21:21:51",
+            "time": "2013-01-22 07:14:57",
             "type": "library",
             "autoload": {
                 "psr-0": {
@@ -537,6 +570,7 @@
         "gedmo/doctrine-extensions": 20,
         "leafo/lessphp": 20,
         "coffeescript/coffeescript": 20,
-        "fzaninotto/faker": 20
+        "fzaninotto/faker": 20,
+        "reneaigle/zfdebug": 20
     }
 }

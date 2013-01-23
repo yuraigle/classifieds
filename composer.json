@@ -18,6 +18,7 @@
         "leafo/lessphp": "dev-master",
         "coffeescript/coffeescript": "dev-master",
 
-        "fzaninotto/faker": "1.1.*@dev"
+        "fzaninotto/faker": "1.1.*@dev",
+        "reneaigle/zfdebug": "dev-master"
     }
 }

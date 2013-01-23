@@ -14,7 +14,7 @@ class User_SessionController extends Bisna\Controller\Action
 
             $this->_helper->redirector->gotoRoute(array(), "home", true);
         }
-
+/*
         if($this->getRequest()->getMethod() === 'POST')
         {
             try
@@ -61,9 +61,67 @@ class User_SessionController extends Bisna\Controller\Action
                 $this->view->messages = $messages;
                 $this->view->messages_class = "error";
             }
+        }*/
+
+        $this->view->user = $user = $this->_getParam("user");
+    }
+
+    public function newAction()
+    {
+        $session = $this->_helper->currentSession();
+
+        // redirect if already logged in
+        if ($this->_helper->currentUser())
+        {
+            $session->write("messages", "ALREADY_LOGGED_IN");
+            $session->write("messages_class", null);
+
+            $this->_helper->redirector->gotoRoute(array(), "home", true);
+        }
+
+        if($this->getRequest()->getMethod() === 'POST')
+        {
+            $this->forward("create");
         }
 
         $this->view->user = $user = $this->_getParam("user");
+    }
+
+    public function createAction()
+    {
+        $session = $this->_helper->currentSession();
+
+        $request = $this->getParam("user");
+        $adapter = new \User_Model_AuthAdapter($this->em(), '\User\Entity\User', 'email', 'password');
+        $adapter->setIdentity($request['email'])
+                ->setCredential($request['password']);
+
+        $res = Zend_Auth::getInstance()->authenticate($adapter);
+
+        if ($res->getCode() == Zend_Auth_Result::SUCCESS)
+        {
+            // write messages in session
+            $session->write("messages", $res->getMessages());
+            $session->write("messages_class", "success");
+
+            // get redirect link from session
+            $return_url = $session->read("return_url");
+            if (! empty($return_url))
+            {
+                $session->write("return_url", null);
+                return $this->redirect(urldecode($return_url));
+            }
+            else
+                return $this->_helper->redirector->gotoRoute(array(), "home", true);
+        }
+        else
+        {
+            $session->write("messages", $res->getMessages());
+            $session->write("messages_class", "error");
+
+            $this->forward("new");
+//            return $this->_helper->redirector->gotoRoute(array(), "login", true);
+        }
     }
 
     public function logoutAction()
