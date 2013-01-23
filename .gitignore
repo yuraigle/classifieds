@@ -1,4 +1,7 @@
-/.idea
+.idea
+.zfproject.xml
+composer.phar
+composer.lock
 /vendor/*
 /application/logs/*
 /doctrine/Proxy/*.php
