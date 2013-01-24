@@ -1,0 +1,15 @@
+<div class="row-fluid">
+    <div class="span3"></div>
+    <div class="span6 well">
+        <div style="text-align: center;">
+            <i class="mega-icon mega-icon-read-note"></i><br/><br/>
+
+            <p>Verification letter sent successfully!</p>
+
+            <p>We’ve sent an email to <strong>your email address</strong> containing a temporary link that will allow you to verify your email address for the next 24 hours. Please check your spam folder if the email doesn’t appear within a few minutes.</p>
+
+        <a href="<?php echo $this->url(["action"=>"edit", "id"=>$this->currentUser()->getId()], "profile", true); ?>" class="btn">Return to your profile <i class="icon-arrow-right"></i></a>
+    </div>
+    </div>
+    <div class="span3"></div>
+</div>

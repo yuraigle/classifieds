@@ -1,0 +1,21 @@
+<div class="row-fluid">
+    <div class="span3"></div>
+    <div class="span6 well">
+        <div style="text-align: center;">
+            <i class="mega-icon mega-icon-read-note"></i><br/><br/>
+
+<?php if ($this->status == "ERROR") : ?>
+            <h4>Verification link is wrong!</h4>
+
+            <p>This could be for one of the following reasons:</p>
+            <ul style="text-align: left; display: block; margin: 10px auto; width: 280px;">
+                <li>You have incorrectly copied the link address</li>
+                <li>Link has expired</li>
+            </ul>
+
+        <a href="<?php echo $this->url(["controller"=>"registration","action"=>"send-letter"], "user", true); ?>" class="btn">Send me a new letter <i class="icon-arrow-right"></i></a>
+<?php endif; ?>
+    </div>
+    </div>
+    <div class="span3"></div>
+</div>

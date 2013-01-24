@@ -29,6 +29,9 @@ class User_ProfileController extends Bisna\Controller\Action
                 array("id"=>$id, "user"=>$this->_getParam("user")));
 
         $this->view->user = $this->_getParam("user", $user->getArrayCopy());
+
+        // not-verified notification
+        $this->view->verified = $user->getVerified();
     }
 
     // update profile info

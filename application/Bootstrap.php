@@ -28,9 +28,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $options = array(
             'plugins' => array(
                 'Variables', 'Html', 'Exception', 'Memory', 'Time',
-                'ZFDebug_Controller_Plugin_Debug_Plugin_Doctrine2'  => array(
-                    'entityManagers' => array($em),
-                ),
+                'ZFDebug_Controller_Plugin_Debug_Plugin_Doctrine2'  => [
+                    'entityManagers' => [$em],
+                ],
                 'File' => array('basePath' => APPLICATION_PATH),
             )
         );
@@ -87,7 +87,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     protected function _initApplicationSession() 
     {
         // do not store sessions for doctrine cli
-        if (defined('APPLICATION_CLI') && APPLICATION_CLI == 1) {return;}
+        if (defined('APPLICATION_CLI') && APPLICATION_CLI == 1) 
+            return;
 
         $this->bootstrap('doctrine');
         $this->bootstrap('session');

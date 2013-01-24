@@ -64,6 +64,8 @@ class User_RegistrationController extends Bisna\Controller\Action
             $this->em()->persist($session);
             $this->em()->flush();
 
+            // TODO: send verification email
+
             // messages in session
             $session->write("messages", "SIGNED_UP_OK");
             $session->write("messages_class", "success");
@@ -84,5 +86,63 @@ class User_RegistrationController extends Bisna\Controller\Action
         $this->_helper->json(array(
             "id" => $this->_getCaptcha()->generate(),
         ));
+    }
+
+    // send a verification letter for current user
+    public function sendLetterAction()
+    {
+        $this->_helper->checkMember(); // redirect to login if !logged in
+        $user = $this->_helper->currentUser();
+
+        $code = md5(rand());
+        $user->setVerifyCode($code);
+        $user->setVerifyLetterDate(new \DateTime());
+
+        $this->em()->persist($user);
+        $this->em()->flush();
+
+        // TODO: send email
+    }
+
+    public function verifyAction()
+    {
+        $this->_helper->checkMember(); // redirect to login if !logged in
+
+        $session = $this->_helper->currentSession();
+
+        $id = $this->_getParam("id");
+        $code = $this->_getParam("code");
+        $day_ago = new \DateTime();
+        $day_ago->sub(new \DateInterval("P1D"));
+
+        $res = $this->em()->createQuery("select u from \User\Entity\User u"
+            . " where u.id=?1 and u.verify_code=?2 and u.verify_letter_date>?3"
+            . " and u.verified = 0")
+            ->setParameter(1, $id)
+            ->setParameter(2, $code)
+            ->setParameter(3, $day_ago)
+            ->getResult();
+
+        if (empty($res[0]))
+        {
+            $this->view->status = "ERROR";
+        }
+        else
+        {
+            $this->view->status = "OK";
+
+            $user = $res[0];
+            $user->setVerified(true);
+            $user->setVerifyCode(null);
+            $this->em()->persist($user);
+            $this->em()->flush();
+
+            // messages in session
+            $session->write("messages", "VERIFICATION_OK");
+            $session->write("messages_class", "success");
+
+            $this->_helper->redirector->gotoRoute(array("action" => "edit", "id" => $user->getId()), "profile", true);
+        }
+
     }
 }

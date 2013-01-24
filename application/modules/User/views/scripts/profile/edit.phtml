@@ -4,6 +4,15 @@
     </div>
 
     <div class="span5">
+        <?php if (! $this->verified) : ?>
+        <div class="alert alert-block">
+            <a class='close' data-dismiss='alert' href='#'>&times;</a>
+            <h4>Your email address is not verified</h4>
+            <p>...</p>
+            <a href="<?php echo $this->url(["controller"=>"registration", "action"=>"send-letter"], "user", true); ?>">Send me a verification letter</a>
+
+        </div>
+        <?php endif; ?>
         <h2><?php echo $this->translate('EDIT_PROFILE'); ?></h2>
         <?php echo $this->messages(); ?>
         <?php echo $this->partial("profile/_formProfile.phtml", "User", array("user"=>$this->user)); ?>

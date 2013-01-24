@@ -40,6 +40,8 @@ return array(
     "ALREADY_LOGGED_IN" => "You are already signed in.",
     "PROFILE_UPDATED_OK" => "Your profile information updated.",
     "USER_PROFILE_UPDATED_OK" => "User profile information updated.",
+    "INVALID_VERIFICATION_LINK" => "Invalid verification link.",
+    "VERIFICATION_OK" => "You successfully verified your email address",
 
     // User fields
     "EDIT_PROFILE" => "Edit Profile",
