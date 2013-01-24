@@ -3,6 +3,7 @@ return array(
     "SITE_TITLE" => "Site title",
     "SAVE_BTN" => "Save",
     "BACK_BTN" => "Back",
+    "SUBMIT" => "Submit",
 
     // Auth
     "SIGNUP" => "Sign up",
@@ -10,12 +11,15 @@ return array(
     "LOGOUT" => "Logout",
     "LOGIN_BTN" => "Sign in",
     "SIGNUP_BTN" => "Sign up",
+    "FORGOT_PASSWORD" => "Forgot password",
+    "FORGOT_YOUR_PASSWORD" => "Forgot password?",
 
     // Auth errors
     "EMAIL_BLANK" => "Email must be specified",
     "USER_NOT_FOUND" => "Invalid email or password.",
     "PASSWORD_BLANK" => "Password must be specified",
     "PASSWORD_WRONG" => "Invalid email or password.",
+    "EMAIL_NOT_FOUND" => "Can't find that email, sorry.",
 
     "UNAUTHENTICATED" => "You need to sign in or sign up before continuing.",
     "NOT_ALLOWED" => "You are not authorized to access this page",

@@ -27,6 +27,30 @@
             line-height: @headerHeight;
             margin: 0;
         }
+        ul {
+            float: right;
+            font-size: 11px;
+            line-height: 54px;
+            margin: 0;
+            padding: 0;
+            text-shadow: 1px 1px 0 #FFFFFF;
+            text-transform: uppercase;
+            li {
+                background: url("../images/vl.gif") no-repeat scroll 7px center transparent;
+                display: inline;
+                font-weight: bold;
+                padding: 3px 0 3px 20px;
+                a{
+                    color: #666666;
+                    outline: medium none;
+                    text-decoration: none;
+                    &:hover { color: #008EE8; }
+                }
+                &:first-child {
+                    background: none;
+                }
+            }
+        }
     }
     .form_content {
         background: none repeat scroll 0 0 #FFF;

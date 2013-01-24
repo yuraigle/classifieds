@@ -26,51 +26,57 @@ class User_RegistrationController extends Bisna\Controller\Action
             $this->_helper->redirector->gotoRoute(array(), "home", true);
         }
 
-        $captcha = $this->_getCaptcha();
-
-        if($this->getRequest()->getMethod() === 'POST')
+        if($this->getRequest()->getMethod() === 'POST' && ! $this->_getParam("status"))
         {
-            try
-            {
-                $request = $this->_getParam("user");
-
-                $valid = $this->em()->getRepository('User\Entity\User')
-                    ->validate($request);
-
-                $messages = ($valid === true)? array() : $valid;
-
-                if (! $captcha->isValid($request['captcha']))
-                    $messages[] = "WRONG_CAPTCHA";
-
-                if (! empty($messages))
-                    throw new Zend_Exception("Validation errors");
-
-                // create user
-                $user = new User\Entity\User();
-                $user->populate($request);
-                $this->em()->persist($user);
-
-                // write in session
-                $session = $this->_helper->currentSession();
-                $session->setUser($user);
-                $this->em()->persist($session);
-                $this->em()->flush();
-
-                // messages in session
-                $session->write("messages", "SIGNED_UP_OK");
-                $session->write("messages_class", "success");
-
-                $this->_helper->redirector->gotoRoute(array(), "home", true);
-            }
-            catch (Zend_Exception $e)
-            {
-                $this->view->messages = $messages;
-                $this->view->messages_class = "error";
-            }
+            $this->forward("create");
         }
 
         $this->view->user = $user = $this->_getParam("user");
-        $this->view->captcha_id = $captcha->generate();
+        $this->view->captcha_id = $this->_getCaptcha()->generate();
+    }
+
+    public function createAction()
+    {
+        $session = $this->_helper->currentSession();
+        try
+        {
+            $request = $this->_getParam("user");
+
+            $valid = $this->em()->getRepository('User\Entity\User')
+                ->validate($request);
+
+            $messages = ($valid === true)? array() : $valid;
+
+            if (! $this->_getCaptcha()->isValid($request['captcha']))
+                $messages[] = "WRONG_CAPTCHA";
+
+            if (! empty($messages))
+                throw new Zend_Exception("Validation errors");
+
+            // create user
+            $user = new User\Entity\User();
+            $user->populate($request);
+            $this->em()->persist($user);
+
+            // write in session
+            $session = $this->_helper->currentSession();
+            $session->setUser($user);
+            $this->em()->persist($session);
+            $this->em()->flush();
+
+            // messages in session
+            $session->write("messages", "SIGNED_UP_OK");
+            $session->write("messages_class", "success");
+
+            $this->_helper->redirector->gotoRoute(array("action" => "edit", "id" => $user->getId()), "profile", true);
+        }
+        catch (Zend_Exception $e)
+        {
+            $session->write("messages", $messages);
+            $session->write("messages_class", "error");
+
+            $this->forward('new', null, null, array("user" => $request, "status" => "ERROR"));
+        }
     }
 
     public function recaptchaAction()

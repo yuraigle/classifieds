@@ -17,7 +17,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     // debuger in dev mode
     protected function _initZFDebug()
     {
-        if(APPLICATION_ENV != 'development') {return;}
+        if(APPLICATION_ENV != 'development')
+            return;
 
         $autoloader = Zend_Loader_Autoloader::getInstance();
         $autoloader->registerNamespace('ZFDebug');

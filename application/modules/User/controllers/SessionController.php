@@ -2,6 +2,7 @@
 
 class User_SessionController extends Bisna\Controller\Action
 {
+    // show login form
     public function newAction()
     {
         $session = $this->_helper->currentSession();
@@ -12,17 +13,16 @@ class User_SessionController extends Bisna\Controller\Action
             $session->write("messages", "ALREADY_LOGGED_IN");
             $session->write("messages_class", null);
 
-            $this->_helper->redirector->gotoRoute(array(), "home", true);
+            $this->_helper->redirector->gotoRoute([], "home", true);
         }
 
         if($this->getRequest()->getMethod() === 'POST' && ! $this->_getParam("status"))
-        {
             $this->forward("create");
-        }
 
         $this->view->user = $user = $this->_getParam("user");
     }
 
+    // authenticate
     public function createAction()
     {
         $session = $this->_helper->currentSession();
@@ -48,22 +48,24 @@ class User_SessionController extends Bisna\Controller\Action
             $session->write("messages", $res->getMessages());
             $session->write("messages_class", "success");
 
-             $this->_helper->returnToSession(array(), "home", true);
+            // try get redirect link from session
+            $this->_helper->returnToSession([], "home", true);
         }
         catch (Zend_Auth_Adapter_Exception $e)
         {
             $session->write("messages", $e->getMessage());
             $session->write("messages_class", "error");
 
-            $this->forward("new", null, null, array("user" => $request, "status" => "ERROR"));
+            $this->forward("new", null, null, ["user" => $request, "status" => "ERROR"]);
         }
     }
 
-    public function logoutAction()
+    // logout
+    public function deleteAction()
     {
         // redirect if already not logged in
         if (! $this->_helper->currentUser())
-            $this->_helper->redirector->gotoRoute(array(), "home", true);
+            $this->_helper->redirector->gotoRoute([], "home", true);
 
         $this->em()->getRepository('\User\Entity\Session')->destroy();
         $session = $this->_helper->currentSession();
@@ -76,6 +78,37 @@ class User_SessionController extends Bisna\Controller\Action
         $session->write("messages_class", "info");
 
         // redirect home
-        $this->_helper->redirector->gotoRoute(array(), "home", true);
+        $this->_helper->redirector->gotoRoute([], "home", true);
+    }
+
+    // forget password form
+    public function forgotAction()
+    {
+        if($this->getRequest()->getMethod() === 'POST')
+        {
+            $session = $this->_helper->currentSession();
+            $request = $this->getParam("user");
+            $user = $this->em()->getRepository('\User\Entity\User')
+                ->findOneBy(['email' => $request['email']]);
+
+            if (is_null($user))
+            {
+                // messages in session
+                $session->write("messages", "EMAIL_NOT_FOUND");
+                $session->write("messages_class", "error");
+            }
+            else
+            {
+                //TODO: send instructions
+
+                $this->forward("password-sent");
+            }
+        }
+    }
+
+    // shows result of sending password
+    public function passwordSentAction()
+    {
+
     }
 }

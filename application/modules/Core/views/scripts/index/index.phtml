@@ -1,3 +1,14 @@
 <?php echo $this->messages(); ?>
 
-core/index/index
+<div class="row-fluid">
+<?php if (! $this->currentUser()) : ?>
+    <div class="span3">
+        <h4><?php echo $this->tr("LOGIN"); ?></h4>
+        <?php echo $this->partial("session/_formLogin.phtml", "User", array()); ?>
+
+    </div>
+<?php endif; ?>
+    <div class="span9">
+    core/index/index
+    </div>
+</div>
