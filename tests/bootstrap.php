@@ -116,4 +116,12 @@ abstract class BaseTestCase extends Zend_Test_PHPUnit_ControllerTestCase
 
         Zend_Session::destroy();
     }
+
+    public function loginUser($user, $password)
+    {
+        $this->request->setMethod('POST')
+            ->setPost(array('user' => array('email' => $user, 'password' => $password)));
+
+        $this->dispatch('/login');
+    }
 }

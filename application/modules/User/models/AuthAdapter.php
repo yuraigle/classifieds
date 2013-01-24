@@ -190,16 +190,12 @@ class User_Model_AuthAdapter implements Zend_Auth_Adapter_Interface
         } elseif ($this->_credentialColumn == '') {
             $exception = 'A credential column must be supplied for the ZendX_Doctrine_Auth_Adapter authentication adapter.';
         } elseif ($this->_identity == '') {
-            $exception = 'A value for the identity was not provided prior to authentication with ZendX_Doctrine_Auth_Adapter.';
-        } elseif ($this->_credential === null) {
-            $exception = 'A credential value was not provided prior to authentication with ZendX_Doctrine_Auth_Adapter.';
+            $exception = 'EMAIL_BLANK';
+        } elseif ($this->_credential == '') {
+            $exception = 'PASSWORD_BLANK';
         }
 
         if (null !== $exception) {
-            /**
-             * @see Zend_Auth_Adapter_Exception
-             */
-            require_once 'Zend/Auth/Adapter/Exception.php';
             throw new Zend_Auth_Adapter_Exception($exception);
         }
         
@@ -265,7 +261,7 @@ class User_Model_AuthAdapter implements Zend_Auth_Adapter_Interface
     {
         if (count($resultIdentities) < 1) {
             $this->_authenticateResultInfo['code'] = Zend_Auth_Result::FAILURE_IDENTITY_NOT_FOUND;
-            $this->_authenticateResultInfo['messages'][] = 'A record with the supplied identity could not be found.';
+            $this->_authenticateResultInfo['messages'][] = 'USER_NOT_FOUND';
             return $this->_authenticateCreateAuthResult();
         } elseif (count($resultIdentities) > 1) {
             $this->_authenticateResultInfo['code'] = Zend_Auth_Result::FAILURE_IDENTITY_AMBIGUOUS;
@@ -275,11 +271,11 @@ class User_Model_AuthAdapter implements Zend_Auth_Adapter_Interface
             $resultIdentity = $resultIdentities[0];
             if (! $this->_validateCredential($resultIdentity)) {
                 $this->_authenticateResultInfo['code'] = Zend_Auth_Result::FAILURE_CREDENTIAL_INVALID;
-                $this->_authenticateResultInfo['messages'][] = 'Supplied credential is invalid.';
+                $this->_authenticateResultInfo['messages'][] = 'PASSWORD_WRONG';
             } else {
                 $this->_authenticateResultInfo['code'] = Zend_Auth_Result::SUCCESS;
-                $this->_authenticateResultInfo['identity'] = $this->_identity;
-                $this->_authenticateResultInfo['messages'][] = 'Authentication successful.';
+                $this->_authenticateResultInfo['identity'] = $resultIdentity->getId();
+                $this->_authenticateResultInfo['messages'][] = 'LOGGED_IN_OK';
             }
         } else {
             $this->_authenticateResultInfo['code'] = Zend_Auth_Result::FAILURE_UNCATEGORIZED;
@@ -293,7 +289,8 @@ class User_Model_AuthAdapter implements Zend_Auth_Adapter_Interface
     {
         // assume salt and password columns existing
         $salt = $identity->getSalt();
-        return (md5($this->_credential . $salt) == $identity->getPassword());
+        $password = $identity->getPassword();
+        return (md5($salt . $this->_credential) == $password);
     }
 
     /**

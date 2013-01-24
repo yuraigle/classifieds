@@ -2,13 +2,8 @@
 
 class User_SessionControllerTest extends BaseTestCase
 {
-    public function loginUser($user, $password)
-    {
-        $this->request->setMethod('POST')
-                      ->setPost(array('user' => array('email' => $user, 'password' => $password)));
-
-        $this->dispatch('/login');
-    }
+    protected $_login = "kai@li.ru";
+    protected $_pass = "asdasd";
 
     public function testFakeSessionStarted()
     {
@@ -17,41 +12,52 @@ class User_SessionControllerTest extends BaseTestCase
 
     public function testValidLoginRedirectsToHome()
     {
-        $this->loginUser('kai@li.ru', 'asdasd');
+        $this->loginUser($this->_login, $this->_pass);
 
-//        $user = Zend_Controller_Action_HelperBroker::getExistingHelper('currentUser')->direct();
         $this->assertTrue(!is_null($this->currentUser()));
         $this->assertRedirectTo('/');
     }
 
-    public function testInvalidLogin0()
+    public function test_Invalid_Login_0()
     {
         $this->loginUser('', '');
         $this->assertContains('Email must be specified', $this->getResponse()->getBody());
-        $this->assertContains('Password must be specified', $this->getResponse()->getBody());
         $this->assertNotRedirectTo('/');
         $this->assertTrue(is_null($this->currentUser()));
     }
 
-    public function testInvalidLogin1()
+    public function test_Invalid_Login_1()
     {
-        $this->loginUser('kai@li.ru', '');
+        $this->loginUser($this->_login, '');
         $this->assertNotContains('Email must be specified', $this->getResponse()->getBody());
         $this->assertContains('Password must be specified', $this->getResponse()->getBody());
         $this->assertNotRedirectTo('/');
+        $this->assertTrue(is_null($this->currentUser()));
     }
 
-    public function testInvalidLogin2()
+    public function test_Invalid_Login_2()
     {
-        $this->loginUser('', 'qweewq');
+        $this->loginUser('', 'wrong_pass');
         $this->assertContains('Email must be specified', $this->getResponse()->getBody());
-        $this->assertNotContains('Password must be specified', $this->getResponse()->getBody());
         $this->assertNotRedirectTo('/');
+        $this->assertTrue(is_null($this->currentUser()));
     }
 
-    public function testLogout()
+    public function test_Unauthenticated_Logout()
     {
         $this->dispatch('/logout');
+        $this->assertRedirectTo('/');
+    }
+
+    public function test_Logout()
+    {
+        $this->loginUser($this->_login, $this->_pass);
+
+        $this->resetRequest();
+        $this->resetResponse();
+
+        $this->dispatch('/logout');
         $this->assertTrue(is_null($this->currentUser()));
+        $this->assertRedirectTo('/');
     }
 }

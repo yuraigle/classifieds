@@ -29,6 +29,7 @@ return array(
     "WRONG_CAPTCHA" => "Captcha value is wrong",
 
     // Auth messages
+    "ALREADY_LOGGED_OUT" => "",
     "LOGGED_IN_OK" => "Signed in successfully.",
     "SIGNED_UP_OK" => "Welcome! You have signed up successfully.",
     "LOGGED_OUT_OK" => "Signed out successfully.",

@@ -14,7 +14,7 @@ class User_RegistrationController extends Bisna\Controller\Action
         return $captcha;
     }
 
-    public function signupAction()
+    public function newAction()
     {
         // redirect if already logged in
         if ($this->_helper->currentUser())
