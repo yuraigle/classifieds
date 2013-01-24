@@ -4,7 +4,7 @@ composer.phar
 composer.lock
 /vendor/*
 /application/logs/*
-/doctrine/Proxy/*.php
+/library/Proxy/*.php
 /public/css/*
 /public/js/*
 /public/img/*
