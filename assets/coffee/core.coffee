@@ -2,7 +2,7 @@ $ ->
     $('[rel=tooltip]').tooltip()
     $('[rel=popover]').popover()
 
-    $('[rel=modal]').click ->
+    $('.modal-link').click ->
         resource = $(this).attr('data-resource')
         $.post(
             resource.replace(/_/g, "/")

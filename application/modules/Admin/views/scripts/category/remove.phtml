@@ -1,0 +1,17 @@
+<div class="modal fade" id="_admin_category_remove" style="display: none;">
+    <div class="modal-header">
+        <button class="close" data-dismiss="modal">×</button>
+        <h3><?php echo $this->translate('DELETE_CATEGORY'); ?></h3>
+    </div>
+    <div class="modal-body">
+        <div id="_admin_category_remove_messages"></div>
+        <form action="<?php echo $this->url(["controller"=>"category", "action"=>"delete"], "classified", true) ?>" id="_admin_category_remove_form" method="post">
+            <input type="hidden" name="id" value="<?php echo $this->id; ?>" />
+            <p><?php echo $this->tr("ARE_YOU_SURE") ?></p>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal"><?php echo $this->tr("BACK_BTN"); ?></a>
+        <a class="btn btn-danger" id="_admin_category_remove_submit"><?php echo $this->tr("DELETE_BTN"); ?></a>
+    </div>
+</div>

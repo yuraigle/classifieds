@@ -1,3 +1,7 @@
+<div class="page-header">
+    <h3><?php echo $this->tr("USERS_LIST"); ?> (<?php echo $this->paginator->getTotalItemCount(); ?>)</h3>
+</div>
+
 <?php echo $this->messages(); ?>
 
 <?php echo $this->paginationControl($this->paginator); ?>
@@ -20,7 +24,7 @@
         <td><?php echo $user->getUsername(); ?></td>
         <td><?php echo $user->getCreated()->format("Y-m-d"); ?></td>
         <td class="tiny">
-            <?php echo $this->partial("user/_userOptions.phtml", "Admin", array("user"=>$user)); ?>
+            <?php echo $this->partial("user/_userOptions.phtml", "Admin", array("id"=>$user->getId())); ?>
         </td>
     </tr>
     <?php endforeach; ?>

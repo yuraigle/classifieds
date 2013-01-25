@@ -1,0 +1,43 @@
+<!-- header -->
+<div class="page-header">
+    <h3><?php echo $this->tr("CATEGORIES_LIST"); ?></h3>
+    <ul class="nav nav-pills">
+    <li><a href="#" class="modal-link" data-resource="_classified_category_new">
+        <i class="icon-plus"></i> <?php echo $this->tr("NEW"); ?>
+    </a></li>
+    </ul>
+</div>
+<!-- /header -->
+
+<?php echo $this->messages(); ?>
+
+<!-- table -->
+<?php echo $this->paginationControl($this->paginator); ?>
+
+<table class="table table-bordered table-condensed table-hover">
+    <thead>
+    <tr>
+        <th><?php echo $this->tr("ID"); ?></th>
+        <th><?php echo $this->tr("CATEGORY"); ?></th>
+        <th><?php echo $this->tr("PARENT"); ?></th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($this->paginator as $category) : ?>
+    <tr>
+        <td class="tiny"><?php echo $category->getId(); ?></td>
+        <td><?php echo $category->getName(); ?></td>
+        <td><?php if ($category->getParent()) echo $category->getParent()->getName(); ?></td>
+        <td class="tiny">
+            <?php echo $this->partial("category/_categoryOptions.phtml", "Admin", ["id"=>$category->getId()]) ?>
+        </td>
+    </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table>
+
+<?php echo $this->paginationControl($this->paginator); ?>
+<!-- /table -->
+
+<div id="modal"></div>

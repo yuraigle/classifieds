@@ -12,8 +12,8 @@ abstract class Admin_Model_Controller extends Bisna\Controller\Action
     public function init()
     {
         $this->_helper->checkAdmin();
-
         Zend_Layout::startMvc()->setLayout('admin');
+        $this->view->active_tab = $this->getRequest()->getControllerName();
 
         parent::init();
     }

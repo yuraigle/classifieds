@@ -1,0 +1,10 @@
+<?php
+$em = \Zend_Registry::get('em');
+$top_level = $em->createQuery('select c from \Classified\Entity\Category c'
+    . ' where c.parent is null')
+    ->getResult();
+?>
+
+<?php foreach ($top_level as $parent) : ?>
+<option value="<?php echo $parent->getId() ?>"><?php echo $parent->getName() ?></option>
+<?php endforeach;

@@ -4,6 +4,12 @@ return array(
     "SAVE_BTN" => "Save",
     "BACK_BTN" => "Back",
     "SUBMIT" => "Submit",
+    "DELETE_BTN" => "Delete",
+    "ARE_YOU_SURE" => "Are you sure?",
+    "EDIT" => "Edit",
+    "REMOVE" => "Remove",
+    "VIEW" => "View",
+    "ADD" => "Add",
 
     // Auth
     "SIGNUP" => "Sign up",
@@ -65,7 +71,16 @@ return array(
     "PROFILE_LINK" => "Profile",
     "SETTINGS_LINK" => "Settings",
 
-    "EDIT" => "Edit",
-    "REMOVE" => "Remove",
-    "VIEW" => "View",
+    // 
+    "CATEGORIES_LIST" => "Categories",
+    "NEW_CATEGORY" => "New Category",
+    "CATEGORY_PARENT" => "Parent",
+    "CATEGORY_NAME" => "Name",
+    "CATEGORY_NAME_BLANK" => "Category name must be specified",
+    "CATEGORY_CREATED_OK" => "Category created successfully",
+    "CATEGORY_DELETED_OK" => "Category deleted successfully",
+    "DELETE_CATEGORY" => "Delete category",
+    "EDIT_CATEGORY" => "Edit category",
+
+    "USERS_LIST" => "Users",
 );

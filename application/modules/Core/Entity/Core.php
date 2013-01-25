@@ -7,6 +7,18 @@ use Doctrine\ORM\Mapping as ORM;
 abstract class Core
 {
     /**
+     * @var \Doctrine\ORM\EntityManager
+     */
+    protected $_em;
+
+    /**
+     * @return \Doctrine\ORM\EntityManager
+     */
+    public function em()
+    {
+        return \Zend_Registry::get("em");
+    }
+    /**
      * Magic getter to expose protected properties.
      *
      * @param string $property
