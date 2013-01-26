@@ -21,9 +21,6 @@ set_include_path(implode(PATH_SEPARATOR, array(
 // composer autoloader
 require APPLICATION_PATH . '/../vendor/autoload.php';
 
-// Zend_Application
-require_once 'Zend/Application.php';
-
 // Creating application
 $application = new Zend_Application(
     APPLICATION_ENV,

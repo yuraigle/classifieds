@@ -6,5 +6,5 @@ $top_level = $em->createQuery('select c from \Classified\Entity\Category c'
 ?>
 
 <?php foreach ($top_level as $parent) : ?>
-<option value="<?php echo $parent->getId() ?>"><?php echo $parent->getName() ?></option>
+<option <?php if ($this->active == $parent->getId()) echo " selected" ?> value="<?php echo $parent->getId() ?>"><?php echo $parent->getName() ?></option>
 <?php endforeach;

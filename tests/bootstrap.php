@@ -26,6 +26,7 @@ set_include_path(implode(PATH_SEPARATOR, array(
 require_once "autoload.php";
 
 Zend_Session::$_unitTestEnabled = true;
+
 /**
 * Base Controller Test Class
 *

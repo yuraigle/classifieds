@@ -14,7 +14,10 @@ class Admin_CategoryController extends Admin_Model_Controller
 
     public function editAction()
     {
-        
+        $id = $this->_getParam("id");
+        $category = $this->em()->find("\Classified\Entity\Category", $id);
+
+        $this->view->category = $category->getArrayCopy();
     }
 
     // show remove category request (modal window)

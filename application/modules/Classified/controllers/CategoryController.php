@@ -54,12 +54,52 @@ class Classified_CategoryController extends Bisna\Controller\Action
         }
     }
 
-    // show edit category form -> admin
-    public function editAction()
+    // update entity
+    public function updateAction()
     {
+        $id = $this->_getParam("id");
+        $category = $this->em()->find('\Classified\Entity\Category', $id);
+        $session = $this->_helper->currentSession();
 
+        // access
+        if (is_null($category)) {throw new Zend_Exception("ERROR", 404);}
+        $this->_helper->checkAdmin();
+
+        if($this->getRequest()->getMethod() === 'POST')
+        {
+            try
+            {
+                $request = $this->_getParam("category");
+
+                // validations
+                $valid = $this->em()->getRepository('\Classified\Entity\Category')
+                    ->validate($request);
+                $messages = ($valid === true)? array() : $valid;
+                if (! empty($messages))
+                    throw new Zend_Exception("Validation errors");
+
+                // update entity
+                $category->populate($request);
+                $this->em()->persist($category);
+                $this->em()->flush();
+
+                // messages to session
+                $session->write("messages_class", "success");
+                $session->write("messages", "CATEGORY_UPDATED_OK");
+            }
+            catch (Zend_Exception $e)
+            {
+                // errors to session
+                $session->write("messages", $messages);
+                $session->write("messages_class", "error");
+            }
+                return $this->_helper->redirector->gotoRoute(array(
+                    "module"=>"admin", "controller"=>"category", 
+                    "action"=>"edit", "id"=>$id), "admin", true);
+        }
     }
 
+    // delete entity
     public function deleteAction()
     {
         $this->_helper->checkAdmin();

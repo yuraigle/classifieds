@@ -1,6 +1,9 @@
 <!-- header -->
 <div class="page-header">
-    <h3><?php echo $this->tr("EDIT_CATEGORY"); ?></h3>
+    <h3>
+        <?php echo $this->tr("EDIT_CATEGORY"); ?>
+        <small>"<?php echo $this->category['name'] ?>"</small>
+    </h3>
     <ul class="nav nav-pills">
     <li><a href="<?php echo $this->url(array("controller"=>"category"), "admin", true); ?>">
         <i class="icon-arrow-left"></i> Back to categories list
@@ -10,10 +13,30 @@
 <!-- /header -->
 
 <div class="row-fluid">
-<div class="span6" style="background: #eee;">
-    left
-</div>
-<div class="span6">
-    right
-</div>
+    <div class="span4">
+    <?php echo $this->messages(); ?>
+    <form action="<?php echo $this->url(array("controller"=>"category", "action"=>"update", "id"=>$this->category['id']), "classified", true); ?>" method="post">
+        <div class="control-group">
+            <label class="control-label" for="category_parent"><?php echo $this->tr("CATEGORY_PARENT"); ?>:</label>
+            <div class="controls">
+                <select id="category_parent" name="category[parent]" class="span12">
+                    <option value="0">No parent</option>
+                    <?php echo $this->partial("categoriesList.phtml", "Classified", ["active"=>@$this->category['parent']]); ?>
+                </select>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="category_name"><?php echo $this->tr("CATEGORY_NAME"); ?>:</label>
+            <div class="controls">
+                <input type="text" id="category_name" name="category[name]" value="<?php echo @$this->category['name']; ?>" class="span12"/>
+            </div>
+        </div>
+        <div class="form-actions">
+            <div class="controls">
+                <input type="submit" name="submit" class="btn btn-primary" value="<?php echo $this->tr("SUBMIT"); ?>" />
+            </div>
+        </div>
+    </form>
+    </div>
+    <div class="span8"></div>
 </div>

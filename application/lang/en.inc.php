@@ -79,6 +79,7 @@ return array(
     "CATEGORY_NAME_BLANK" => "Category name must be specified",
     "CATEGORY_CREATED_OK" => "Category created successfully",
     "CATEGORY_DELETED_OK" => "Category deleted successfully",
+    "CATEGORY_UPDATED_OK" => "Category updated successfully",
     "DELETE_CATEGORY" => "Delete category",
     "EDIT_CATEGORY" => "Edit category",
 

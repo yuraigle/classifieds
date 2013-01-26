@@ -47,6 +47,17 @@ class Category extends \Core\Entity\Core
         $this->children = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
+    public function populate($request)
+    {
+        $fields = array("name");
+        foreach ($fields as $field)
+            if (isset($request[$field]))
+                $this->{$field} = $request[$field];
+
+        $this->_em = \Zend_Registry::get("em");
+        $this->parent = $this->_em->find('\Classified\Entity\Category', $request['parent']);
+    }
+
     /**
      * Get id
      *
