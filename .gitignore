@@ -9,3 +9,4 @@ composer.lock
 /public/js/*
 /public/img/*
 /public/captcha/*
+!.gitkeep
