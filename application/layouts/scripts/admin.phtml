@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title><?php echo $this->tr("SITE_TITLE"); ?></title>
+        <?php echo $this->headTitle(); ?>
 
         <link href="<?php echo $this->baseUrl()?>/css/admin.min.css" media="screen" rel="stylesheet" type="text/css" >
         <link href="<?php echo $this->baseUrl()?>/css/jquery.lightbox.css" media="screen" rel="stylesheet" type="text/css" >
@@ -26,4 +26,5 @@
         <?php echo $this->headScript(); ?>
 
     </body>
+    <!-- <?php echo "rendered in " . round(microtime(true) - Zend_Registry::get("start_time"), 3) . "s";?> -->
 </html>

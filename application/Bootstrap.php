@@ -2,16 +2,44 @@
 
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
-    // autoloader for doctrine2
-    public function _initDoctrineContainer()
+    // translation
+    public function _initLocale() {
+        \Zend_Registry::set( "start_time", microtime(true) );
+
+        $currentLocale = 'en';
+        $locale = new Zend_Locale($currentLocale);
+        \Zend_Registry::set('Zend_Locale', $locale);
+
+        $translationFile = APPLICATION_PATH . "/lang/$currentLocale.inc.php";
+        $translate = new Zend_Translate('array', $translationFile, $currentLocale);
+        \Zend_Registry::set('Zend_Translate', $translate);
+    }
+
+    // bootstrap modules
+    protected function _initModules()
     {
-        $this->bootstrap('Doctrine'); // Create EntityManager
-        $em = $this->getResource('doctrine')->getEntityManager();
+        $this->bootstrap('frontController');
+        $frontController = Zend_Controller_Front::getInstance();
+        $modules = $frontController->getControllerDirectory();
+        $schema = []; // doctrine schema paths
 
-        $em->getEventManager()->addEventSubscriber(new \Gedmo\Timestampable\TimestampableListener());
-        $em->getEventManager()->addEventSubscriber(new \Gedmo\Sluggable\SluggableListener());
+        foreach($modules as $module => $path)
+        {
+            $schema[] = $path . "/../Entity";
+            $bootstrapClass = ucfirst($module) . '_Bootstrap';
 
-        Zend_Registry::set("em", $em);
+            Zend_Loader_Autoloader::getInstance()->registerNamespace(ucfirst($module));
+            $moduleBootstrap = new $bootstrapClass($this);
+            $moduleBootstrap->bootstrap();
+
+            Zend_Controller_Action_HelperBroker::addPath(
+                $path . "/helpers",
+                ucfirst($module) . "_Controller_Helper_"
+            );
+        }
+
+        \Zend_Registry::set("doctrine_schema", $schema);
+        $this->bootstrap('doctrine');
     }
 
     // debuger in dev mode
@@ -22,7 +50,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
         $autoloader = Zend_Loader_Autoloader::getInstance();
         $autoloader->registerNamespace('ZFDebug');
-        $em = $this->bootstrap('doctrine')->getResource('doctrine')->getEntityManager();
+        $em = \Zend_Registry::get("em");
         $em->getConnection()->getConfiguration()->setSQLLogger(new \Doctrine\DBAL\Logging\DebugStack());
 
         $options = array(
@@ -36,65 +64,29 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         );
 
         $debug = new ZFDebug_Controller_Plugin_Debug($options);
-        $this->bootstrap('frontController');
-        $frontController = $this->getResource('frontController');
+
+        $frontController = Zend_Controller_Front::getInstance();
         $frontController->registerPlugin($debug);
     }
 
-    // translation
-    public function _initLocale() {
-        $currentLocale = 'en';
-        $locale = new Zend_Locale($currentLocale);
-        Zend_Registry::set('Zend_Locale', $locale);
-
-        $translationFile = APPLICATION_PATH . "/lang/$currentLocale.inc.php";
-        $translate = new Zend_Translate('array', $translationFile, $currentLocale);
-        Zend_Registry::set('Zend_Translate', $translate);
-    }
-
-    protected function _initFrontController()
-    {
-        $frontController = Zend_Controller_Front::getInstance()
-            ->setDefaultModule("Core")
-            ->addModuleDirectory(APPLICATION_PATH . "/modules/")
-            ->setParam('prefixDefaultModule', 'true');
-
-        return $frontController;
-    }
-
-    protected function _initModules()
-    {
-        $frontController = $this->getResource("FrontController");
-        $modules = $frontController->getControllerDirectory();
-        foreach($modules as $module => $path)
-        {
-            $path_bs = $path . "/../Bootstrap.php";
-            $bootstrapClass = ucfirst($module) . '_Bootstrap';
-
-            include_once $path_bs;
-            $moduleBootstrap = new $bootstrapClass($this);
-            $moduleBootstrap->bootstrap();
-
-            Zend_Controller_Action_HelperBroker::addPath(
-                $path . "/helpers",
-                ucfirst($module) . "_Controller_Helper_"
-            );
-
-            Zend_Loader_Autoloader::getInstance()->registerNamespace(ucfirst($module));
-        }
-    }
-
+    // store session in db
     protected function _initApplicationSession() 
     {
         // do not store sessions for doctrine cli
         if (defined('APPLICATION_CLI') && APPLICATION_CLI == 1) 
             return;
 
-        $this->bootstrap('doctrine');
         $this->bootstrap('session');
-        $em = $this->getResource('Doctrine')->getEntityManager();
+        $em = \Zend_Registry::get("em");
 
         Pike_Session_SaveHandler_Doctrine::setEntitityManager($em);
         Zend_Session::start();
+    }
+
+    public function _initAppView()
+    {
+        $view = $this->bootstrap('view')->getResource('view'); 
+        $view->headTitle('Site.com');
+        $view->headTitle()->setSeparator(' - ');
     }
 }

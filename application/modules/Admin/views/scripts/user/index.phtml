@@ -1,3 +1,7 @@
+<?php
+    $this->headTitle()->prepend("Admin");
+    $this->headTitle()->prepend("Users");
+?>
 <div class="page-header">
     <h3><?php echo $this->tr("USERS_LIST"); ?> (<?php echo $this->paginator->getTotalItemCount(); ?>)</h3>
 </div>

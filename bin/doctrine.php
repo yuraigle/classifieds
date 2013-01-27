@@ -31,7 +31,7 @@ $application = new Zend_Application(
 $bootstrap = $application->bootstrap()->getBootstrap();
 
 // Retrieve Doctrine Container resource
-$container = $bootstrap->getResource('doctrine');
+$container = \Zend_Registry::get("doctrine");
 
 // Console
 $cli = new \Symfony\Component\Console\Application(

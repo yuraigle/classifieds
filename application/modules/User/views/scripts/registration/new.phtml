@@ -1,10 +1,13 @@
+<?php
+    $this->headTitle()->prepend($this->tr('SIGNUP'));
+?>
 <div class="row-fluid">
     <div class="span3"></div>
     <div class="span6 form">
         <div class="form_head">
             <div class="bheadl"></div>
             <div class="bheadr"></div>
-            <h2><?php echo $this->translate('SIGNUP'); ?></h2>
+            <h2><?php echo $this->tr('SIGNUP'); ?></h2>
             <ul>
                 <li><a href="<?php echo $this->url(array(), "login", true); ?>"><?php echo $this->tr("LOGIN"); ?></a></li>
             </ul>

@@ -58,6 +58,18 @@ class Category extends \Core\Entity\Core
         $this->parent = $this->_em->find('\Classified\Entity\Category', $request['parent']);
     }
 
+    public function getArrayCopy()
+    {
+        $arrayCopy = array();
+        $fields = array("id", "name");
+        foreach ($fields as $field)
+            $arrayCopy[$field] = $this->{$field};
+
+        $arrayCopy["parent"] = (is_null($this->parent))? 0 : $this->parent->getId();
+
+        return $arrayCopy;
+    }
+
     /**
      * Get id
      *

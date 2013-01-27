@@ -12,24 +12,34 @@ use Bisna\Doctrine\Container as DoctrineContainer;
 class Doctrine extends \Zend_Application_Resource_ResourceAbstract
 {
     /**
-     * @var Bisna\Doctrine\Container
+     * @var \Bisna\Doctrine\Container
      */
     protected $container;
     
     /**
      * Initializes Doctrine Context.
      *
-     * @return Bisna\Doctrine\Container
+     * @return \Bisna\Doctrine\Container
      */
     public function init()
     {
+        if (\Zend_Registry::isRegistered("doctrine_schema"))
+                $this->setOptions(["orm" => ["entityManagers" => ["default" =>
+                ["metadataDrivers" => ["drivers" => [0 =>
+                ["mappingDirs" => \Zend_Registry::get("doctrine_schema")]]
+            ]]]]]);
+
         $config = $this->getOptions();
-        
+
         // Starting Doctrine container
         $this->container = new DoctrineContainer($config);
 
-        // Add to Zend Registry
+        $em = $this->container->getEntityManager();
+        $em->getEventManager()->addEventSubscriber(new \Gedmo\Timestampable\TimestampableListener());
+        $em->getEventManager()->addEventSubscriber(new \Gedmo\Sluggable\SluggableListener());
+
         \Zend_Registry::set('doctrine', $this->container);
+        \Zend_Registry::set('em', $em);
 
         return $this->container;
     }
@@ -37,7 +47,7 @@ class Doctrine extends \Zend_Application_Resource_ResourceAbstract
     /**
      * Retrieve the Doctrine Container.
      *
-     * @return Bisna\Doctrine\Container
+     * @return \Bisna\Doctrine\Container
      */
     public function getContainer()
     {

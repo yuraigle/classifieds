@@ -5,9 +5,8 @@ class Admin_IndexController extends Admin_Model_Controller
     public function indexAction()
     {
         // fake data
-        /*
         $faker = Faker\Factory::create();
-
+/*
         for ($i=0; $i<5000; $i++)
         {
             $user = new \User\Entity\User();
@@ -26,6 +25,6 @@ class Admin_IndexController extends Admin_Model_Controller
         }
 
         $this->em()->flush();
-        */
+*/
     }
 }
