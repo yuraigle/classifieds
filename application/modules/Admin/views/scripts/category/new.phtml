@@ -1,0 +1,32 @@
+<div class="modal fade" id="_admin_category_new" style="display: none;">
+    <div class="modal-header">
+        <button class="close" data-dismiss="modal">×</button>
+        <h3><?php echo $this->translate('NEW_CATEGORY'); ?></h3>
+    </div>
+    <div class="modal-body">
+        <div class="row-fluid">
+        <div id="_admin_category_new_messages"></div>
+        <form action="<?php echo $this->url(array("controller"=>"category", "action"=>"create", "format"=>"json"), "classified", true); ?>" id="_admin_category_new_form" method="post">
+            <div class="control-group">
+                <label class="control-label" for="category_parent"><?php echo $this->tr("CATEGORY_PARENT"); ?>:</label>
+                <div class="controls">
+                    <select id="category_parent" name="category[parent]" class="span12">
+                        <option value="0">No parent</option>
+                        <?php echo $this->partial("categoriesList.phtml", "Classified", ["active"=>@$this->category['parent']]); ?>
+                    </select>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="category_name"><?php echo $this->tr("CATEGORY_NAME"); ?>:</label>
+                <div class="controls">
+                    <input type="text" id="category_name" name="category[name]" value="<?php echo @$this->category['name']; ?>" class="span12"/>
+                </div>
+            </div>
+        </form>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal"><?php echo $this->tr("BACK_BTN"); ?></a>
+        <a class="btn btn-primary" id="_admin_category_new_submit"><?php echo $this->tr("SUBMIT"); ?></a>
+    </div>
+</div>
