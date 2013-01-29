@@ -2,6 +2,34 @@
 
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
+    // caching
+    protected function _initCache()
+    {
+        $oBackend = new Zend_Cache_Backend_Memcached(
+            array(
+                'servers' => array( array(
+                    'host' => '127.0.0.1',
+                    'port' => '11211'
+                ) ),
+                'compression' => false
+            )
+        );
+
+        $oFrontend = new Zend_Cache_Core(
+            array(
+                'caching' => true, // APPLICATION_ENV == 'production',
+                'cache_id_prefix' => 'Application_',
+                'logging' => false,
+                'write_control' => true,
+                'automatic_serialization' => true,
+                'ignore_user_abort' => true
+            )
+        );
+
+        $oCache = Zend_Cache::factory( $oFrontend, $oBackend );
+        Zend_Registry::set( "cache", $oCache );
+    }
+
     // translation
     public function _initLocale() {
         \Zend_Registry::set( "start_time", microtime(true) );

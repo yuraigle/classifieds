@@ -12,7 +12,6 @@ defined('APPLICATION_PATH')
 set_include_path(implode(PATH_SEPARATOR, array(
     realpath(APPLICATION_PATH . '/modules'),
     realpath(APPLICATION_PATH . '/../library'),
-    realpath(APPLICATION_PATH . '/../vendor'),
     get_include_path(),
 )));
 

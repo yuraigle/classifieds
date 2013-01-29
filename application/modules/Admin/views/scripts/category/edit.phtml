@@ -1,6 +1,9 @@
 <?php
+    // set title
     $this->headTitle()->prepend("Admin");
     $this->headTitle()->prepend("Categories");
+
+    $this->addChosen(); // add chosen to head
 ?>
 <!-- header -->
 <div class="page-header">
@@ -17,13 +20,13 @@
 <!-- /header -->
 
 <div class="row-fluid">
-    <div class="span4">
+    <div class="span6">
     <?php echo $this->messages(); ?>
     <form action="<?php echo $this->url(array("controller"=>"category", "action"=>"update", "id"=>$this->category['id']), "classified", true); ?>" method="post">
         <div class="control-group">
             <label class="control-label" for="category_parent"><?php echo $this->tr("CATEGORY_PARENT"); ?>:</label>
             <div class="controls">
-                <select id="category_parent" name="category[parent]" class="span12">
+                <select id="category_parent" name="category[parent]" class="span12 chzn-select">
                     <option value="0">No parent</option>
                     <?php echo $this->partial("categoriesList.phtml", "Classified", ["active"=>@$this->category['parent']]); ?>
                 </select>
@@ -42,5 +45,5 @@
         </div>
     </form>
     </div>
-    <div class="span8"></div>
+    <div class="span6"></div>
 </div>

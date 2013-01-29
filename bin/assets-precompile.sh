@@ -20,9 +20,9 @@ php ${LESSPHP_PATH} -f=compressed ../assets/less/admin.less ../public/css/admin.
 # compile coffee, move to public
 php ./coffee.php
 # compress scripts, move to public
-java -jar ${CLOSURE_PATH} --js \
-    ../public/js/core.js \
-    --js_output_file=../public/js/core.min.js
+# java -jar ${CLOSURE_PATH} --js \
+#     ../public/js/core.js \
+#     --js_output_file=../public/js/core.min.js
 # images
 cp -Rf ../assets/img/* ../public/img
 

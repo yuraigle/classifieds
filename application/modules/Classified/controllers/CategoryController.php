@@ -2,14 +2,6 @@
 
 class Classified_CategoryController extends Bisna\Controller\Action
 {
-    // shows create category form: for ajax use
-    public function newAction()
-    {
-        $this->_helper->checkAdmin();
-        Zend_Controller_Action_HelperBroker::removeHelper('Layout');
-        $this->view->category = $this->getParam("category");
-    }
-
     // create category
     public function createAction()
     {
@@ -31,6 +23,10 @@ class Classified_CategoryController extends Bisna\Controller\Action
             $category->populate($request);
             $this->em()->persist($category);
             $this->em()->flush();
+
+            // clear category tree in cache
+            $cache = \Zend_Registry::get('cache');
+            $cache->remove('CATEGORIES_LIST');
 
             // messages to session
             $session->write("messages_class", "success");
@@ -83,6 +79,10 @@ class Classified_CategoryController extends Bisna\Controller\Action
                 $this->em()->persist($category);
                 $this->em()->flush();
 
+                // clear category tree in cache
+                $cache = \Zend_Registry::get('cache');
+                $cache->remove('CATEGORIES_LIST');
+
                 // messages to session
                 $session->write("messages_class", "success");
                 $session->write("messages", "CATEGORY_UPDATED_OK");
@@ -109,6 +109,10 @@ class Classified_CategoryController extends Bisna\Controller\Action
 
         $this->em()->remove($category);
         $this->em()->flush();
+
+        // clear category tree in cache
+        $cache = \Zend_Registry::get('cache');
+        $cache->remove('CATEGORIES_LIST');
 
         $session = $this->_helper->currentSession();
         $session->write("messages_class", "info");

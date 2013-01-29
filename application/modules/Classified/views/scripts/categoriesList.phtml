@@ -1,10 +1,74 @@
 <?php
-$em = \Zend_Registry::get('em');
-$top_level = $em->createQuery('select c from \Classified\Entity\Category c'
-    . ' where c.parent is null')
-    ->getResult();
-?>
+$cache = \Zend_Registry::get('cache');
+$cacheId = 'CATEGORIES_LIST';
+$selected = $this->active;
 
-<?php foreach ($top_level as $parent) : ?>
-<option <?php if ($this->active == $parent->getId()) echo " selected" ?> value="<?php echo $parent->getId() ?>"><?php echo $parent->getName() ?></option>
-<?php endforeach;
+// try to get result from cache
+if ($cache->test($cacheId))
+{
+    $result = $cache->load($cacheId);
+}
+else
+{
+    $em = \Zend_Registry::get('em');
+    $categories = $em->getRepository('\Classified\Entity\Category')->findAll();
+
+    $objects = [];
+    $depths = [];
+    $available = [];
+    $result = [];
+    $rest = [];
+
+    foreach ($categories as $cat)
+    {
+        $objects[$cat->getId()] = $cat;
+        $depths[$cat->getId()] = $depth = $cat->getDepth();
+        if (! $depth)
+            $available[$cat->getId()] = $depth;
+        else
+            $rest[$cat->getId()] = $depth;
+    }
+
+    while (! empty($available))
+    {
+        // select the deepest element
+        arsort($available);
+        $id = array_keys($available)[0];
+        $cat = $objects[$id];
+
+        // available -> result
+        $result[] = array('id' => $id, 'name' => $cat->getName(), 'depth' => $depths[$id]);
+        unset($rest[$id]);
+        unset($available[$id]);
+
+        //recount available
+        if ($cat->getChildren()) echo "";
+        foreach ($cat->getChildren() as $child)
+            $available[$child->getId()] = $depths[$child->getId()];
+    }
+
+    $cache->save( $result, $cacheId, $tags = array(), $lifetime = 3600 );
+}
+
+// build html from $result
+$optgroup_is_opened = false;
+foreach ($result as $res)
+{
+    $id = $res['id'];
+    $name = $res['name'];
+    $depth = $res['depth'];
+    $spacer = str_repeat("&nbsp;&nbsp;&nbsp;&nbsp;", $depth);
+    $sel = ($selected == $id)? " selected" : "";
+    if ($depth == 0)
+    {
+        if ($optgroup_is_opened)
+            echo "</optgroup>";
+        echo "<optgroup label='$name'>";
+        $optgroup_is_opened = true;
+    }
+    else
+        echo "<option$sel value='$id'>$spacer $name</option>";
+}
+
+if ($optgroup_is_opened)
+    echo "</optgroup>";

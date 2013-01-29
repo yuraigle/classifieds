@@ -18,12 +18,11 @@ set_include_path(implode(PATH_SEPARATOR, array(
 set_include_path(implode(PATH_SEPARATOR, array(
     realpath(APPLICATION_PATH . '/modules'),
     realpath(APPLICATION_PATH . '/../library'),
-    realpath(APPLICATION_PATH . '/../vendor'),
     get_include_path(),
 )));
 
 // composer autoloader
-require_once "autoload.php";
+require_once APPLICATION_PATH . '/../vendor/autoload.php';
 
 Zend_Session::$_unitTestEnabled = true;
 
