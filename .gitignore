@@ -6,8 +6,8 @@ composer.lock
 /vendor/*
 /application/logs/*
 /library/Proxy/*.php
-/public/css/*
-/public/js/*
-/public/img/*
-/public/captcha/*
+/public/*/css/*
+/public/*/js/*
+/public/*/img/*
+/public/*/captcha/*
 !.gitkeep

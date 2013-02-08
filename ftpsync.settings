@@ -1,0 +1,8 @@
+{
+	"default": {
+		"host": "osclass.em",
+		"username": "reneaigle",
+		"password": "emptycontainer123",
+		"path": "/var/www/classifieds/"
+	}
+}

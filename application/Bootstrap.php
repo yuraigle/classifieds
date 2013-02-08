@@ -66,6 +66,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             );
         }
 
+        $frontController->registerPlugin(new Core_Plugin_Header());
+
         \Zend_Registry::set("doctrine_schema", $schema);
         $this->bootstrap('doctrine');
     }

@@ -1,34 +1,41 @@
 LESSPHP_PATH=../vendor/leafo/lessphp/plessc
+COFFEE_PATH=./coffee.php
 CLOSURE_PATH=./java/compiler.jar
 
-# remove old assets
-rm -Rf ../public/css/*
-rm -Rf ../public/js/*
-rm -Rf ../public/img/*
+domainsCount=1
+domains=(domain)
 
-# copy external js
-cp -Rf ../externals/js/* ../public/js/
-# copy external css
-cp -Rf ../externals/css/* ../public/css/
-# copy external img
-cp -Rf ../externals/img/* ../public/img/
+for ((i=0; i<domainsCount; i++)); do
 
-# compile less, move to public
-php ${LESSPHP_PATH} -f=compressed ../assets/less/core.less ../public/css/core.min.css
-php ${LESSPHP_PATH} -f=compressed ../assets/less/admin.less ../public/css/admin.min.css
+    # remove old assets
+    rm -Rf ../public/${domains[$i]}/css/*
+    rm -Rf ../public/${domains[$i]}/js/*
+    rm -Rf ../public/${domains[$i]}/img/*
 
-# compile coffee, move to public
-php ./coffee.php
-# compress scripts, move to public
-# java -jar ${CLOSURE_PATH} --js \
-#     ../public/js/core.js \
-#     --js_output_file=../public/js/core.min.js
-# images
-cp -Rf ../assets/img/* ../public/img
+    # copy css, js, img
+    cp -Rf ../assets/common/js/* ../public/${domains[$i]}/js/
+    cp -Rf ../assets/common/css/* ../public/${domains[$i]}/css/
+    cp -Rf ../assets/common/img/* ../public/${domains[$i]}/img/
+    cp -Rf ../assets/custom/${domains[$i]}/js/* ../public/${domains[$i]}/js/
+    cp -Rf ../assets/custom/${domains[$i]}/css/* ../public/${domains[$i]}/css/
+    cp -Rf ../assets/custom/${domains[$i]}/img/* ../public/${domains[$i]}/img/
 
-# permissions set
-chmod -R 777 ../public/js/
-chmod -R 777 ../public/css/
-chmod -R 777 ../public/img/
+    # compile less
+    php ${LESSPHP_PATH} -f=compressed ../assets/common/less/core.less ../public/${domains[$i]}/css/core.min.css
+    php ${LESSPHP_PATH} -f=compressed ../assets/common/less/admin.less ../public/${domains[$i]}/css/admin.min.css
+
+    if [ -f ../assets/custom/${domains[$i]}/less/custom.less ];
+    then
+        php ${LESSPHP_PATH} -f=compressed ../assets/custom/${domains[$i]}/less/custom.less ../public/${domains[$i]}/css/custom.min.css
+    fi
+
+    # compile coffee
+    php ${COFFEE_PATH} -i ../assets/common/coffee/core.coffee -o ../public/${domains[$i]}/js/core.js
+    if [ -f ../assets/custom/${domains[$i]}/coffee/custom.coffee ];
+    then
+        php ${COFFEE_PATH} -i ../assets/custom/${domains[$i]}/coffee/custom.coffee -o ../public/${domains[$i]}/js/custom.js
+    fi
+
+done
 
 echo "Done."
