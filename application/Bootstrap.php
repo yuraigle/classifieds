@@ -27,7 +27,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         );
 
         $oCache = Zend_Cache::factory( $oFrontend, $oBackend );
-        Zend_Registry::set( "cache", $oCache );
+        \Zend_Registry::set( "cache", $oCache );
     }
 
     // translation
@@ -49,7 +49,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $this->bootstrap('frontController');
         $frontController = Zend_Controller_Front::getInstance();
         $modules = $frontController->getControllerDirectory();
-        $schema = []; // doctrine schema paths
+        $schema = array(); // doctrine schema paths
 
         foreach($modules as $module => $path)
         {
@@ -84,9 +84,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $options = array(
             'plugins' => array(
                 'Variables', 'Html', 'Exception', 'Memory', 'Time',
-                'ZFDebug_Controller_Plugin_Debug_Plugin_Doctrine2'  => [
-                    'entityManagers' => [$em],
-                ],
+                'ZFDebug_Controller_Plugin_Debug_Plugin_Doctrine2'  => array(
+                    'entityManagers' => array($em),
+                ),
                 'File' => array('basePath' => APPLICATION_PATH),
             )
         );

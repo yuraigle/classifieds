@@ -3,7 +3,7 @@
         <b class="caret"></b>
     </a>
     <ul class="dropdown-menu pull-right">
-        <li><a href="<?php echo $this->url(["controller"=>"category", "action"=>"edit", "id"=>$this->id], "admin", true); ?>"><i class="icon-edit"></i> <?php echo $this->tr("EDIT") ?></a></li>
+        <li><a href="<?php echo $this->url(array("controller"=>"category", "action"=>"edit", "id"=>$this->id), "admin", true); ?>"><i class="icon-edit"></i> <?php echo $this->tr("EDIT") ?></a></li>
         <li><a href="#" class="modal-link" data-resource="_admin_category_remove" data-id="<?php echo $this->id ?>"><i class="icon-remove"></i> <?php echo $this->tr("REMOVE"); ?></a></li>
     </ul>
 </div>

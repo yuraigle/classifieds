@@ -5,7 +5,7 @@
     </div>
     <div class="modal-body">
         <div id="_admin_category_remove_messages"></div>
-        <form action="<?php echo $this->url(["controller"=>"category", "action"=>"delete"], "classified", true) ?>" id="_admin_category_remove_form" method="post">
+        <form action="<?php echo $this->url(array("controller"=>"category", "action"=>"delete"), "classified", true) ?>" id="_admin_category_remove_form" method="post">
             <input type="hidden" name="id" value="<?php echo $this->id; ?>" />
             <p><?php echo $this->tr("ARE_YOU_SURE") ?></p>
         </form>

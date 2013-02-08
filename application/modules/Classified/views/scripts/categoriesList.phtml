@@ -4,7 +4,7 @@ $cacheId = 'CATEGORIES_LIST';
 $selected = $this->active;
 
 // try to get result from cache
-if ($cache->test($cacheId))
+if (false && $cache->test($cacheId))
 {
     $result = $cache->load($cacheId);
 }
@@ -13,11 +13,11 @@ else
     $em = \Zend_Registry::get('em');
     $categories = $em->getRepository('\Classified\Entity\Category')->findAll();
 
-    $objects = [];
-    $depths = [];
-    $available = [];
-    $result = [];
-    $rest = [];
+    $objects = array();
+    $depths = array();
+    $available = array();
+    $result = array();
+    $rest = array();
 
     foreach ($categories as $cat)
     {
@@ -33,7 +33,8 @@ else
     {
         // select the deepest element
         arsort($available);
-        $id = array_keys($available)[0];
+        $id = array_keys($available);
+        $id = $id[0];
         $cat = $objects[$id];
 
         // available -> result

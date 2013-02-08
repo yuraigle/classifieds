@@ -34,7 +34,7 @@
         <td><?php echo $category->getName(); ?></td>
         <td><?php if ($category->getParent()) echo $category->getParent()->getName(); ?></td>
         <td class="tiny">
-            <?php echo $this->partial("category/_categoryOptions.phtml", "Admin", ["id"=>$category->getId()]) ?>
+            <?php echo $this->partial("category/_categoryOptions.phtml", "Admin", array("id"=>$category->getId())) ?>
         </td>
     </tr>
     <?php endforeach; ?>

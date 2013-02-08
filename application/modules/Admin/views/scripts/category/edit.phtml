@@ -28,7 +28,7 @@
             <div class="controls">
                 <select id="category_parent" name="category[parent]" class="span12 chzn-select">
                     <option value="0">No parent</option>
-                    <?php echo $this->partial("categoriesList.phtml", "Classified", ["active"=>@$this->category['parent']]); ?>
+                    <?php echo $this->partial("categoriesList.phtml", "Classified", array("active"=>@$this->category['parent'])); ?>
                 </select>
             </div>
         </div>

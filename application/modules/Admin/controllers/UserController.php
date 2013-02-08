@@ -56,6 +56,6 @@ class Admin_UserController extends Admin_Model_Controller
         $session->write("messages", "Fake data created");
         $session->write("messages_class", "info");
 
-        $this->_helper->redirector->gotoRoute(["controller"=>"user"], "admin", true);
+        $this->_helper->redirector->gotoRoute(array("controller"=>"user"), "admin", true);
     }
 }

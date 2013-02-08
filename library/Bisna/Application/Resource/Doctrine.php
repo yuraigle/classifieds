@@ -24,10 +24,10 @@ class Doctrine extends \Zend_Application_Resource_ResourceAbstract
     public function init()
     {
         if (\Zend_Registry::isRegistered("doctrine_schema"))
-                $this->setOptions(["orm" => ["entityManagers" => ["default" =>
-                ["metadataDrivers" => ["drivers" => [0 =>
-                ["mappingDirs" => \Zend_Registry::get("doctrine_schema")]]
-            ]]]]]);
+                $this->setOptions(array("orm" => array("entityManagers" => array("default" =>
+                array("metadataDrivers" => array("drivers" => array(0 =>
+                array("mappingDirs" => \Zend_Registry::get("doctrine_schema")))
+            ))))));
 
         $config = $this->getOptions();
 

@@ -70,6 +70,25 @@ class Category extends \Core\Entity\Core
         return $arrayCopy;
     }
 
+    /*
+     * Get category depth (number of parents)
+     *
+     * @return integer
+     */
+    public function getDepth()
+    {
+        $obj = $this;
+        $depth = 0;
+
+        while ($obj->getParent())
+        {
+            $obj = $obj->getParent();
+            $depth++;
+        }
+
+        return $depth;
+    }
+
     /**
      * Get id
      *

@@ -46,7 +46,7 @@ class Admin_CategoryController extends Admin_Model_Controller
         $maxCount = 100;
 
         $faker = Faker\Factory::create();
-        $categories = [];
+        $categories = array();
         for ($i = 0; $i<$maxCount; $i++)
         {
             // 1/20 cats are top-level
@@ -76,6 +76,6 @@ class Admin_CategoryController extends Admin_Model_Controller
         $session->write("messages", "Fake data created");
         $session->write("messages_class", "info");
 
-        $this->_helper->redirector->gotoRoute(["controller"=>"category"], "admin", true);
+        $this->_helper->redirector->gotoRoute(array("controller"=>"category"), "admin", true);
     }
 }
