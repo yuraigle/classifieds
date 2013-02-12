@@ -1,0 +1,47 @@
+<?php
+    $this->headTitle()->prepend("Admin");
+    $this->headTitle()->prepend("Questions");
+?>
+<!-- header -->
+<div class="page-header">
+    <h3><?php echo $this->tr("QUESTIONS_LIST"); ?></h3>
+    <ul class="nav nav-pills">
+    <li><a href="#" class="modal-link" data-resource="_admin_question_new">
+        <i class="icon-plus"></i> <?php echo $this->tr("NEW"); ?>
+    </a></li>
+    </ul>
+</div>
+<!-- /header -->
+
+<?php echo $this->messages(); ?>
+
+<!-- table -->
+<?php echo $this->paginationControl($this->paginator); ?>
+
+<table class="table table-bordered table-condensed table-hover">
+    <thead>
+    <tr>
+        <th><?php echo $this->tr("ID"); ?></th>
+        <th><?php echo $this->tr("NAME"); ?></th>
+        <th><?php echo $this->tr("TYPE"); ?></th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($this->paginator as $question) : ?>
+    <tr>
+        <td class="tiny"><?php echo $question->getId(); ?></td>
+        <td><?php echo $question->getName(); ?></td>
+        <td><?php echo $question->getType(); ?></td>
+        <td class="tiny">
+            <?php echo $this->partial("question/_questionOptions.phtml", "Admin", array("id"=>$question->getId())) ?>
+        </td>
+    </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table>
+
+<?php echo $this->paginationControl($this->paginator); ?>
+<!-- /table -->
+
+<div id="modal"></div>

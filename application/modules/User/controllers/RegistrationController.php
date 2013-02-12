@@ -5,8 +5,8 @@ class User_RegistrationController extends Bisna\Controller\Action
     private function _getCaptcha()
     {
         $captcha = new Zend_Captcha_Image();
-        $captcha->setFont(APPLICATION_PATH . '/../assets/fonts/FreeMono.ttf');
-        $captcha->setImgDir(APPLICATION_PATH . '/../public/captcha/');
+        $captcha->setFont(APPLICATION_PATH . '/../assets/common/fonts/FreeMono.ttf');
+        $captcha->setImgDir(APPLICATION_PATH . '/../public/' . CURRENT_DOMAIN . '/captcha/');
         $captcha->setTimeout(300); // 5min
         $captcha->setWordlen(4);
         $captcha->setWidth(280);

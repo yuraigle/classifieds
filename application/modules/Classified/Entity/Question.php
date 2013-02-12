@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="\Classified_Model_Question")
+ * @ORM\HasLifecycleCallbacks
  * @ORM\Table(name="questions")
  */
 class Question extends \Core\Entity\Core
@@ -38,6 +39,30 @@ class Question extends \Core\Entity\Core
      */
     protected $description;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $required;
+
+    public function populate($request)
+    {
+        $fields = array("name", "type", "predefined", "description");
+        foreach ($fields as $field)
+            if (isset($request[$field]))
+                $this->{$field} = $request[$field];
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function defaultFields()
+    {
+        if (is_null($this->required))
+            $this->required = false;
+
+        if ($this->type != 'select')
+            $this->predefined = null;
+    }
 
     /**
      * Get id
@@ -139,5 +164,28 @@ class Question extends \Core\Entity\Core
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Set required
+     *
+     * @param boolean $required
+     * @return Question
+     */
+    public function setRequired($required)
+    {
+        $this->required = $required;
+    
+        return $this;
+    }
+
+    /**
+     * Get required
+     *
+     * @return boolean 
+     */
+    public function getRequired()
+    {
+        return $this->required;
     }
 }

@@ -83,5 +83,19 @@ return array(
     "DELETE_CATEGORY" => "Delete category",
     "EDIT_CATEGORY" => "Edit category",
 
+    // questions management
+    "QUESTIONS_LIST" => "Fields",
+    "NEW_QUESTION" => "New question",
+    "QUESTION_NAME" => "Name",
+    "QUESTION_TYPE" => "Type",
+    "QUESTION_PREDEFINED" => "Predefined values (one per line)",
+    "QUESTION_DESCRIPTION" => "Popup tip",
+
+    "QUESTION_NAME_BLANK" => "Question name must be specified",
+
+    "QUESTION_CREATED_OK" => "Question created successfully",
+    "QUESTION_DELETED_OK" => "Question deleted successfully",
+    "QUESTION_UPDATED_OK" => "Question updated successfully",
+
     "USERS_LIST" => "Users",
 );
