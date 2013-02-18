@@ -86,6 +86,7 @@ return array(
     // questions management
     "QUESTIONS_LIST" => "Fields",
     "NEW_QUESTION" => "New question",
+    "EDIT_QUESTION" => "Edit question",
     "QUESTION_NAME" => "Name",
     "QUESTION_TYPE" => "Type",
     "QUESTION_PREDEFINED" => "Predefined values (one per line)",

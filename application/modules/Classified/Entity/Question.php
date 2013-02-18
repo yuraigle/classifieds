@@ -54,6 +54,7 @@ class Question extends \Core\Entity\Core
 
     /**
      * @ORM\PrePersist
+     * @ORM\PreUpdate
      */
     public function defaultFields()
     {

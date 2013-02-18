@@ -71,6 +71,7 @@ class Classified_CategoryController extends Bisna\Controller\Action
                 $valid = $this->em()->getRepository('\Classified\Entity\Category')
                     ->validate($request);
                 $messages = ($valid === true)? array() : $valid;
+
                 if (! empty($messages))
                     throw new Zend_Exception("Validation errors");
 

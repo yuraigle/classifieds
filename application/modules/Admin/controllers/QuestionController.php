@@ -17,16 +17,18 @@ class Admin_QuestionController extends Admin_Model_Controller
     public function newAction()
     {
         Zend_Controller_Action_HelperBroker::removeHelper('Layout');
+
         $this->view->question = $this->getParam("question");
     }
 
-    // edit category form
+    // edit category form (modal window)
     public function editAction()
     {
-        $id = $this->_getParam("id");
-        $category = $this->em()->find("\Classified\Entity\Category", $id);
+        Zend_Controller_Action_HelperBroker::removeHelper('Layout');
 
-        $this->view->category = $category->getArrayCopy();
+        $id = $this->_getParam("id");
+        $question = $this->em()->find("\Classified\Entity\Question", $id);
+        $this->view->question = $question->getArrayCopy();
     }
 
     // show remove question request (modal window)
@@ -40,42 +42,54 @@ class Admin_QuestionController extends Admin_Model_Controller
     public function populateAction()
     {
         // clear table
-        $this->em()->createQuery('delete from \Classified\Entity\Category')->execute();
-
-        $maxDepth = 3;
-        $maxCount = 100;
+        $this->em()->createQuery('delete from \Classified\Entity\Question')->execute();
+        $this->em()->createQuery('delete from \Classified\Entity\CategoryQuestionReference')->execute();
+        $categories = $this->em()->createQuery('select c from \Classified\Entity\Category c where c.parent is not null')
+            ->getResult();
 
         $faker = Faker\Factory::create();
-        $categories = array();
-        for ($i = 0; $i<$maxCount; $i++)
+
+        for ($i = 0; $i < 200; $i++)
         {
-            // 1/20 cats are top-level
-            if (empty($categories) || rand(0, 100) < 5)
-                $parent = null;
-            else
+            $question = new \Classified\Entity\Question();
+            $type = $faker->randomElement(array ('text', 'textarea', 'select', 'ranged', 'checkbox'));
+            $question->setType($type);
+            $question->setName($faker->sentence(2));
+            $question->setDescription($faker->text);
+            $question->setRequired($faker->boolean);
+
+            if ($type == 'select')
             {
-                $parentId = $categories[array_rand($categories)];
-                $parent = $this->em()->find('\Classified\Entity\Category', $parentId);
+                $count = (integer) rand(2, 8);
+                $question->setPredefined(join("\n", $faker->words($count)));
             }
 
-            $category = new \Classified\Entity\Category();
-            $category->setName($faker->sentence(3));
-            $category->setParent($parent);
-            $this->em()->persist($category);
-            $this->em()->flush();
+            $this->em()->persist($question);
 
-            if ($category->getDepth() < $maxDepth-1)
-                $categories[] = $category->getId();
+            $cat1 = $faker->randomElement($categories);
+            $ref = new \Classified\Entity\CategoryQuestionReference();
+            $ref->setQuestion($question);
+            $ref->setCategory($cat1);
+            $ref->setWeight((integer) rand(1, 10));
+            $this->em()->persist($ref);
+
+            $cat2 = $faker->randomElement($categories);
+            if ($cat2->getId() != $cat1->getId())
+            {
+                $ref = new \Classified\Entity\CategoryQuestionReference();
+                $ref->setQuestion($question);
+                $ref->setCategory($cat1);
+                $ref->setWeight((integer) rand(1, 10));
+                $this->em()->persist($ref);
+            }
         }
 
-        // clear category tree in cache
-        $cache = \Zend_Registry::get('cache');
-        $cache->remove('CATEGORIES_LIST');
+        $this->em()->flush();
 
         $session = $this->_helper->currentSession();
         $session->write("messages", "Fake data created");
         $session->write("messages_class", "info");
 
-        $this->_helper->redirector->gotoRoute(array("controller"=>"category"), "admin", true);
+        $this->_helper->redirector->gotoRoute(array("controller"=>"question"), "admin", true);
     }
 }
