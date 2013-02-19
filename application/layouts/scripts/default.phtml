@@ -15,6 +15,7 @@
                 </a>
 
                 <ul class="nav nav-pills pull-right">
+                    <li><a href="<?php echo $this->url(array("action"=>"new"), "adverts", true); ?>"><?php echo $this->tr("POST_AD"); ?></a></li>
 <?php if (is_null($this->currentUser())) : ?>
                     <li><a href="<?php echo $this->url(array(), "signup", true); ?>"><?php echo $this->tr("SIGNUP"); ?></a></li>
 <?php else : ?>

@@ -1,6 +1,6 @@
 <?php
 
-class Classified_Model_Category extends \Doctrine\ORM\EntityRepository
+class Classified_Model_QuestionRepository extends \Doctrine\ORM\EntityRepository
 {
     public function expr() {}
 
@@ -9,7 +9,7 @@ class Classified_Model_Category extends \Doctrine\ORM\EntityRepository
         $messages = array();
 
         if (empty($request['name']))
-            $messages[] = "CATEGORY_NAME_BLANK";
+            $messages[] = "QUESTION_NAME_BLANK";
 
         return ($messages == array())? true : $messages;
     }

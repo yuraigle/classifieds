@@ -1,0 +1,41 @@
+<div class="row-fluid">
+    <form action="<?php echo $this->url(array("controller"=>"advert", "action"=>"new"), "classified", true); ?>" method="post" class="form-horizontal">
+        <div class="control-group">
+            <label class="control-label" for="advert_title"><?php echo $this->tr("Title"); ?>:</label>
+            <div class="controls">
+                <input type="text" id="advert_title" name="advert[title]" value="<?php echo @$this->advert['title']; ?>" class="span12"/>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="advert_description"><?php echo $this->tr("Description"); ?>:</label>
+            <div class="controls">
+                <textarea id="advert_description" name="advert[description]" class="span12" rows="5"><?php echo @$this->advert['description']; ?></textarea>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="advert_price"><?php echo $this->tr("Price"); ?>:</label>
+            <div class="controls">
+                <input type="text" id="advert_price" name="advert[price]" value="<?php echo @$this->advert['price']; ?>" class="span12"/>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="advert_category"><?php echo $this->tr("Category"); ?>:</label>
+            <div class="controls">
+                <select id="advert_category" name="advert[category]" class="span12 chzn-select">
+                    <option value="0"></option>
+                    <?php echo $this->partial("categoriesList.phtml", "Classified", array("active"=>@$this->advert['category'])); ?>
+                </select>
+            </div>
+        </div>
+
+        <div id="add_questions" class="clearfix"></div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary"><?php echo $this->tr("SAVE_BTN"); ?></button>
+        </div>
+    </form>
+</div>
+

@@ -4,7 +4,7 @@ $cacheId = 'CATEGORIES_LIST';
 $selected = $this->active;
 
 // try to get result from cache
-if (false && $cache->test($cacheId))
+if ($cache->test($cacheId))
 {
     $result = $cache->load($cacheId);
 }

@@ -99,4 +99,8 @@ return array(
     "QUESTION_UPDATED_OK" => "Question updated successfully",
 
     "USERS_LIST" => "Users",
+
+    // Adverts
+    "NEW_ADVERT" => "New Advert",
+    "POST_AD" => "Post an ad",
 );

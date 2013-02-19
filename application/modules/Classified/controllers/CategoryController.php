@@ -120,4 +120,14 @@ class Classified_CategoryController extends Bisna\Controller\Action
         $session->write("messages", "CATEGORY_DELETED_OK");
         return $this->_helper->json(array("status"=>"OK"));
     }
+
+    // render category fields
+    public function renderAction()
+    {
+        Zend_Controller_Action_HelperBroker::removeHelper('Layout');
+        $id = $this->_getParam("id");
+
+        $cRepo = $this->em()->getRepository('\Classified\Entity\Category');
+        $this->view->questions = $cRepo->getTiedQuestions($id);
+    }
 }

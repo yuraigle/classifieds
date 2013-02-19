@@ -1,0 +1,5 @@
+<?php if (! empty($this->questions)): ?>
+<?php foreach ($this->questions as $q): ?>
+    <?php echo $this->partial("question/_" . $q->getType() .".phtml", "Classified", array("q"=>$q)); ?>
+<?php endforeach; ?>
+<?php endif;

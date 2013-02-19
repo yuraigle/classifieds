@@ -1,0 +1,22 @@
+<?php
+$this->headTitle()->prepend("Advert");
+?>
+<div class="row-fluid">
+    <div class="span3">
+        sidebar
+    </div>
+
+    <div class="span9 form">
+        <div class="form_head">
+            <div class="bheadl"></div>
+            <div class="bheadr"></div>
+            <h2><?php echo $this->translate('NEW_ADVERT'); ?></h2>
+        </div>
+        <div class="form_content">
+            <?php echo $this->messages(); ?>
+            <?php echo $this->partial("advert/_form.phtml", "Classified", array("advert"=>$this->advert)); ?>
+        </div>
+        <div class="bendl"></div>
+        <div class="bendr"></div>
+    </div>
+</div>

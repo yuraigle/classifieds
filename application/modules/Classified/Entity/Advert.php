@@ -6,7 +6,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="\Classified_Model_Advert")
+ * @ORM\Entity(repositoryClass="\Classified_Model_AdvertRepository")
  * @ORM\Table(name="adverts")
  */
 class Advert extends \Core\Entity\Core

@@ -30,3 +30,12 @@ $ ->
 
   $('#question_type').live 'change', ->
     $('#question_predefined').parents('.control-group').toggle $(this).val() == 'select'
+
+  # toggle category fields in advert form
+  $('#advert_category').live 'change', ->
+    $.post(
+      '/classified/category/render'
+      {id: $('#advert_category').val()}
+      (data) ->
+        $('#add_questions').html(data)
+    )

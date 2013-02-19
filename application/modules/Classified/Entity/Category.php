@@ -6,7 +6,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="\Classified_Model_Category")
+ * @ORM\Entity(repositoryClass="\Classified_Model_CategoryRepository")
  * @ORM\Table(name="categories")
  */
 class Category extends \Core\Entity\Core
