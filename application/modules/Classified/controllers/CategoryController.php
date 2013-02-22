@@ -129,5 +129,6 @@ class Classified_CategoryController extends Bisna\Controller\Action
 
         $cRepo = $this->em()->getRepository('\Classified\Entity\Category');
         $this->view->questions = $cRepo->getTiedQuestions($id);
+        $this->view->answers = $this->_getParam("answers");
     }
 }

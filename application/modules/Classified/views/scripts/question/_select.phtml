@@ -3,7 +3,7 @@
     <div class="controls">
         <select class="span12" id="advert_answers_<?=$this->q->getId()?>" name="advert[answers][<?=$this->q->getId()?>]">
 <?php foreach (preg_split("/\n/",$this->q->getPredefined()) as $pre): ?>
-            <option><?php echo $pre?></option>
+            <option<?=$this->selectedIf($this->a==$pre)?>><?php echo $pre?></option>
 <?php endforeach; ?>
         </select>
     </div>

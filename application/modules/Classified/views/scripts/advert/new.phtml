@@ -14,7 +14,7 @@ $this->headTitle()->prepend("Advert");
         </div>
         <div class="form_content">
             <?php echo $this->messages(); ?>
-            <?php echo $this->partial("advert/_form.phtml", "Classified", array("advert"=>$this->advert)); ?>
+            <?php echo $this->partial("advert/_form.phtml", "Classified", array("advert"=>$this->advert, "questions"=>$this->questions)); ?>
         </div>
         <div class="bendl"></div>
         <div class="bendr"></div>

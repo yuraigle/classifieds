@@ -1,5 +1,5 @@
 <div class="row-fluid">
-    <form action="<?php echo $this->url(array("controller"=>"advert", "action"=>"new"), "classified", true); ?>" method="post" class="form-horizontal">
+    <form action="<?php echo $this->url(array("controller"=>"advert", "action"=>"create"), "classified", true); ?>" method="post" class="form-horizontal">
         <div class="control-group">
             <label class="control-label" for="advert_title"><?php echo $this->tr("Title"); ?>:</label>
             <div class="controls">
@@ -31,7 +31,9 @@
             </div>
         </div>
 
-        <div id="add_questions" class="clearfix"></div>
+        <div id="add_questions" class="clearfix">
+            <?php echo $this->partial('category/render.phtml', "Classified",  array("questions" => $this->questions, "answers"=>@$this->advert['answers'])); ?>
+        </div>
 
         <div class="form-actions">
             <button type="submit" class="btn btn-primary"><?php echo $this->tr("SAVE_BTN"); ?></button>
