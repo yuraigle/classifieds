@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="\Classified_Model_AdvertRepository")
+ * @ORM\HasLifecycleCallbacks
  * @ORM\Table(name="adverts")
  */
 class Advert extends \Core\Entity\Core
@@ -55,6 +56,11 @@ class Advert extends \Core\Entity\Core
     private $created;
 
     /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $phone;
+
+    /**
      * @ORM\ManyToOne(targetEntity="User\Entity\User", cascade={"all"}, fetch="LAZY")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
      */
@@ -65,6 +71,90 @@ class Advert extends \Core\Entity\Core
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $category;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Answer", mappedBy="advert")
+     */
+    protected $answers;
+
+    // =========================================================================
+    public function populate($request)
+    {
+        $fields = array("title", "description", "price", "manufacturer",
+            "article", "phone");
+
+        foreach ($fields as $field)
+            if (isset($request[$field]))
+                $this->{$field} = $request[$field];
+
+        $this->_em = \Zend_Registry::get("em");
+        if (isset($request['used']))
+            $this->used =(boolean) $request['used'];
+        if (isset($request['category']))
+            $this->category = $this->_em->find('\Classified\Entity\Category', $request['category']);
+
+        $this->updateAnswers($request['answers']);
+    }
+
+    public function updateAnswers($request_ans)
+    {
+        $answers = $this->getAnswers();
+
+        if (! empty($answers))
+        {
+            foreach ($answers as $ans)
+            {
+                if (empty($request_ans[$ans->getQuestion()->getId()]))
+                    $this->_em->remove($ans);
+                elseif ($request_ans[$ans->getQuestion()->getId()] != $ans->getVal())
+                {
+                    $ans->setVal($request_ans[$ans->getQuestion()->getId()]);
+                    $this->_em->persist($ans);
+                }
+
+                unset($request_ans[$ans->getQuestion()->getId()]);
+            }
+        }
+
+        if (! empty($request_ans))
+            foreach ($request_ans as $key => $value)
+            {
+                $answer = new \Classified\Entity\Answer();
+                $answer->setAdvert($this);
+                $question = $this->_em->find('\Classified\Entity\Question', $key);
+
+                if (! $question) {continue;}
+
+                $answer->setQuestion($question);
+                $answer->setVal($value);
+
+                $this->_em->persist($answer);
+            }
+    }
+
+    public function getArrayCopy()
+    {
+        $copy = parent::getArrayCopy();
+        $copy['category'] = $this->getCategory()->getId();
+
+        $answers = array();
+        foreach ($this->getAnswers() as $answer)
+            $answers[$answer->getQuestion()->getId()] = $answer->getVal();
+        $copy['answers'] = $answers;
+
+        return $copy;
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function defaultFields()
+    {
+        if (is_null($this->used))
+            $this->used = false;
+    }
+    // =========================================================================
 
     /**
      * Get id
@@ -281,5 +371,68 @@ class Advert extends \Core\Entity\Core
     public function getCategory()
     {
         return $this->category;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->answers = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add answers
+     *
+     * @param \Classified\Entity\Answer $answers
+     * @return Advert
+     */
+    public function addAnswer(\Classified\Entity\Answer $answers)
+    {
+        $this->answers[] = $answers;
+    
+        return $this;
+    }
+
+    /**
+     * Remove answers
+     *
+     * @param \Classified\Entity\Answer $answers
+     */
+    public function removeAnswer(\Classified\Entity\Answer $answers)
+    {
+        $this->answers->removeElement($answers);
+    }
+
+    /**
+     * Get answers
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAnswers()
+    {
+        return $this->answers;
+    }
+
+    /**
+     * Set phone
+     *
+     * @param string $phone
+     * @return Advert
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+    
+        return $this;
+    }
+
+    /**
+     * Get phone
+     *
+     * @return string 
+     */
+    public function getPhone()
+    {
+        return $this->phone;
     }
 }

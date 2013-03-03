@@ -1,24 +1,29 @@
 {
-    "name": "rene/classifieds",
-    "authors": [
-        {
-            "name": "Rene Aigle",
-            "email": "reneaigle@gmail.com"
-        }
-    ],
+    "minimum-stability": "dev",
+
     "require": {
-        "digital-canvas/zend-framework": "dev-master",
-
-        "doctrine/orm": "2.3.*@dev",
-        "doctrine/dbal": "2.3.*@dev",
-        "symfony/yaml": "2.1.*@dev",
-        "symfony/console": "2.1.*@dev",
-        "gedmo/doctrine-extensions": "2.3.*@dev",
-
-        "leafo/lessphp": "dev-master",
-        "coffeescript/coffeescript": "dev-master",
-
+        "zendframework/zendframework1": "dev-release-1.12",
+        "doctrine/orm": "2.4.*@dev",
+        "doctrine/dbal": "2.4.*@dev",
+        "symfony/yaml": "2.3.*@dev",
+        "symfony/console": "2.2.*@dev",
         "fzaninotto/faker": "1.1.*@dev",
+        "gedmo/doctrine-extensions": "2.3.*@dev",
+        "leafo/lessphp": "0.3.*@dev",
+        "coffeescript/coffeescript": "dev-master",
+        "phpunit/phpunit": "3.7.*@dev",
+        "twitter/bootstrap": "v2.3.1",
         "reneaigle/zfdebug": "dev-master"
+    },
+
+    "config": {
+        "bin-dir": "bin"
+    },
+
+    "scripts": {
+        "post-update-cmd": [
+            "cp -Rf ./vendor/twitter/bootstrap/fonts/* ./assets/common/fonts",
+            "cp -Rf ./vendor/twitter/bootstrap/js/*.js ./assets/common/js"
+        ]
     }
 }

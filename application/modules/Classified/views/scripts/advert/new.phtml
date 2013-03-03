@@ -1,5 +1,6 @@
 <?php
 $this->headTitle()->prepend("Advert");
+$this->addChosen(); // add chosen to head
 ?>
 <div class="row-fluid">
     <div class="span3">
@@ -14,7 +15,11 @@ $this->headTitle()->prepend("Advert");
         </div>
         <div class="form_content">
             <?php echo $this->messages(); ?>
-            <?php echo $this->partial("advert/_form.phtml", "Classified", array("advert"=>$this->advert, "questions"=>$this->questions)); ?>
+            <div class="row-fluid">
+                <form action="<?php echo $this->url(array("controller"=>"advert", "action"=>"create"), "classified", true); ?>" method="post" class="form-horizontal">
+                    <?php echo $this->partial("advert/_form.phtml", "Classified", array("advert"=>$this->advert, "questions"=>$this->questions)); ?>
+                </form>
+            </div>
         </div>
         <div class="bendl"></div>
         <div class="bendr"></div>

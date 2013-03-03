@@ -1,5 +1,3 @@
-<div class="row-fluid">
-    <form action="<?php echo $this->url(array("controller"=>"advert", "action"=>"create"), "classified", true); ?>" method="post" class="form-horizontal">
         <div class="control-group">
             <label class="control-label" for="advert_title"><?php echo $this->tr("Title"); ?>:</label>
             <div class="controls">
@@ -22,6 +20,13 @@
         </div>
 
         <div class="control-group">
+            <label class="control-label" for="advert_phone"><?php echo $this->tr("Phone"); ?>:</label>
+            <div class="controls">
+                <input type="text" id="advert_phone" name="advert[phone]" value="<?php echo @$this->advert['phone']; ?>" class="span12"/>
+            </div>
+        </div>
+
+        <div class="control-group">
             <label class="control-label" for="advert_category"><?php echo $this->tr("Category"); ?>:</label>
             <div class="controls">
                 <select id="advert_category" name="advert[category]" class="span12 chzn-select">
@@ -38,6 +43,3 @@
         <div class="form-actions">
             <button type="submit" class="btn btn-primary"><?php echo $this->tr("SAVE_BTN"); ?></button>
         </div>
-    </form>
-</div>
-

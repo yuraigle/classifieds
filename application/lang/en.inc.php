@@ -70,6 +70,7 @@ return array(
     // nav links
     "PROFILE_LINK" => "Profile",
     "SETTINGS_LINK" => "Settings",
+    "MY_ADVERTS" => "My ads",
 
     // 
     "CATEGORIES_LIST" => "Categories",
@@ -103,4 +104,10 @@ return array(
     // Adverts
     "NEW_ADVERT" => "New Advert",
     "POST_AD" => "Post an ad",
+
+    "ADVERT_TITLE_BLANK" => "Ad title must be specified",
+    "ADVERT_PRICE_BLANK" => "Ad price must be specified",
+    "ADVERT_CATEGORY_BLANK" => "Ad category must be specified",
+
+    "ADVERT_CREATED_OK" => "Ad created successfully",
 );

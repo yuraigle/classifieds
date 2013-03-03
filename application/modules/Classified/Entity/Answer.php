@@ -20,8 +20,8 @@ class Answer extends \Core\Entity\Core
     protected $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Question", cascade={"all"}, fetch="LAZY")
-     * @ORM\JoinColumn(name="question_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\ManyToOne(targetEntity="Question", fetch="LAZY")
+     * @ORM\JoinColumn(name="question_id", referencedColumnName="id")
      */
     protected $question;
 

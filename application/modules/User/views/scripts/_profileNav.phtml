@@ -1,15 +1,21 @@
 <div class="well">
 <ul class="nav nav-list">
-    <li<?php if ($this->active=="profile") echo " class=\"active\"" ?>>
+    <li<?= $this->activeIf($this->active=="profile")?>>
         <a href="<?php echo $this->url(array("id"=>$this->currentUser()->getId(), "action"=>"edit"), "profile", true); ?>">
             <i class="icon-edit"></i>
             <?php echo $this->tr("PROFILE_LINK"); ?>
         </a>
     </li>
-    <li<?php if ($this->active=="settings") echo " class=\"active\"" ?>>
+    <li<?= $this->activeIf($this->active=="settings")?>>
         <a href="<?php echo $this->url(array("id"=>$this->currentUser()->getId(), "action"=>"settings"), "profile", true); ?>">
             <i class="icon-cog"></i>
             <?php echo $this->tr("SETTINGS_LINK"); ?>
+        </a>
+    </li>
+    <li<?= $this->activeIf($this->active=="ads")?>>
+        <a href="<?php echo $this->url(array("action"=>"manage"), "adverts", true); ?>">
+            <i class="icon-list-alt"></i>
+            <?php echo $this->tr("MY_ADVERTS"); ?>
         </a>
     </li>
 </ul>

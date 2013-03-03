@@ -11,7 +11,14 @@ class Core_ErrorController extends Zend_Controller_Action
             $this->view->message = 'You have reached the error page';
             return;
         }
-        
+
+        if ($errors->exception->getCode() == 404)
+        {
+            $this->getResponse()->setHttpResponseCode(404);
+            $this->view->message = 'Page not found';
+            return $this->render("404");
+        }
+
         switch ($errors->type) {
             case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_ROUTE:
             case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_CONTROLLER:
@@ -24,7 +31,7 @@ class Core_ErrorController extends Zend_Controller_Action
                 break;
             default:
                 // application error
-                $this->getResponse()->setHttpResponseCode(500);
+                $this->getResponse()->setHttpResponseCode(404);
                 $priority = Zend_Log::CRIT;
                 $this->view->message = 'Application error';
                 break;

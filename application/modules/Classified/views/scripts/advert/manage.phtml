@@ -1,0 +1,14 @@
+<?php
+$this->headTitle()->prepend("My ads");
+?>
+<div class="row-fluid">
+    <div class="span4">
+        <?php echo $this->partial("_profileNav.phtml", "User", array("active"=>"ads")); ?>
+    </div>
+
+    <div class="span8">
+        <h2><?php echo $this->translate('MY_ADVERTS'); ?></h2>
+        <?php echo $this->messages(); ?>
+        adverts/manage
+    </div>
+</div>

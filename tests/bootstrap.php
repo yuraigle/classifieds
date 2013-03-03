@@ -1,5 +1,8 @@
 <?php
 
+define('CURRENT_DOMAIN', 'domain');
+define('APPLICATION_CLI', true);
+
 // Define path to application directory
 defined('APPLICATION_PATH')
     || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../application'));
@@ -121,6 +124,6 @@ abstract class BaseTestCase extends Zend_Test_PHPUnit_ControllerTestCase
         $this->request->setMethod('POST')
             ->setPost(array('user' => array('email' => $user, 'password' => $password)));
 
-        $this->dispatch('/login');
+        $this->dispatch('/user/session/new');
     }
 }
