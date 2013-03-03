@@ -1,0 +1,27 @@
+<?php
+$this->headTitle()->prepend("Advert");
+$this->addChosen(); // add chosen to head
+?>
+<div class="row-fluid">
+    <div class="span3">
+        sidebar
+    </div>
+
+    <div class="span9 form">
+        <div class="form_head">
+            <div class="bheadl"></div>
+            <div class="bheadr"></div>
+            <h2><?php echo $this->translate('EDIT_ADVERT'); ?></h2>
+        </div>
+        <div class="form_content">
+            <?php echo $this->messages(); ?>
+            <div class="row-fluid">
+                <form action="<?php echo $this->url(array("controller"=>"advert", "action"=>"update", "id"=>$this->advert['id']), "classified", true); ?>" method="post" class="form-horizontal">
+                    <?php echo $this->partial("advert/_form.phtml", "Classified", array("advert"=>$this->advert, "questions"=>$this->questions)); ?>
+                </form>
+            </div>
+        </div>
+        <div class="bendl"></div>
+        <div class="bendr"></div>
+    </div>
+</div>

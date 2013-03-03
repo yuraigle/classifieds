@@ -1,5 +1,5 @@
 <?php if ($this->pageCount > 1): ?>
-<div class="pagination pagination-centered">
+<div class="pagination pagination-small pagination-centered">
     <ul>
         <li<?php if (empty($this->previous)) echo " class='disabled'" ?>>
             <a href="<?= $this->url(array('page' => $this->previous)); ?>">«</a>

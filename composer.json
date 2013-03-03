@@ -18,12 +18,5 @@
 
     "config": {
         "bin-dir": "bin"
-    },
-
-    "scripts": {
-        "post-update-cmd": [
-            "cp -Rf ./vendor/twitter/bootstrap/fonts/* ./assets/common/fonts",
-            "cp -Rf ./vendor/twitter/bootstrap/js/*.js ./assets/common/js"
-        ]
     }
 }
