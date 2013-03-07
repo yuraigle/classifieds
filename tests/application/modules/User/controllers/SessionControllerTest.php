@@ -2,9 +2,6 @@
 
 class User_SessionControllerTest extends BaseTestCase
 {
-    protected $_login = "kai@li.ru";
-    protected $_pass = "asdasd";
-
     public function testFakeSessionStarted()
     {
         $this->assertTrue(strlen(Zend_Session::getId())>0);
@@ -12,7 +9,7 @@ class User_SessionControllerTest extends BaseTestCase
 
     public function testValidLoginRedirectsToHome()
     {
-        $this->loginUser($this->_login, $this->_pass);
+        $this->loginUser(\Populator::$admin_email, \Populator::$admin_password);
 
         $this->assertTrue(!is_null($this->currentUser()));
         $this->assertRedirectTo('/');
@@ -28,7 +25,7 @@ class User_SessionControllerTest extends BaseTestCase
 
     public function test_Invalid_Login_1()
     {
-        $this->loginUser($this->_login, '');
+        $this->loginUser(\Populator::$admin_email, '');
         $this->assertNotContains('Email must be specified', $this->getResponse()->getBody());
         $this->assertContains('Password must be specified', $this->getResponse()->getBody());
         $this->assertNotRedirectTo('/');
@@ -51,7 +48,7 @@ class User_SessionControllerTest extends BaseTestCase
 
     public function test_Logout()
     {
-        $this->loginUser($this->_login, $this->_pass);
+        $this->loginUser(\Populator::$admin_email, \Populator::$admin_password);
 
         $this->resetRequest();
         $this->resetResponse();

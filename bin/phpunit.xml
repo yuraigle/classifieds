@@ -1,5 +1,11 @@
 <phpunit bootstrap="../tests/bootstrap.php">
     <testsuite name="Application Test Suite">
         <directory>../tests/application</directory>
+        <directory suffix=".php">../tests/application/modules/Classified/populators</directory>
     </testsuite>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">../tests/application/modules/Classified/populators</directory>
+        </whitelist>
+    </filter>
 </phpunit>

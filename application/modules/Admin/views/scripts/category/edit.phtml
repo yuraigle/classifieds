@@ -23,26 +23,7 @@
     <div class="span6">
     <?php echo $this->messages(); ?>
     <form action="<?php echo $this->url(array("controller"=>"category", "action"=>"update", "id"=>$this->category['id']), "classified", true); ?>" method="post">
-        <div class="control-group">
-            <label class="control-label" for="category_parent"><?php echo $this->tr("CATEGORY_PARENT"); ?>:</label>
-            <div class="controls">
-                <select id="category_parent" name="category[parent]" class="span12 chzn-select">
-                    <option value="0">No parent</option>
-                    <?php echo $this->partial("categoriesList.phtml", "Classified", array("active"=>@$this->category['parent'])); ?>
-                </select>
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="category_name"><?php echo $this->tr("CATEGORY_NAME"); ?>:</label>
-            <div class="controls">
-                <input type="text" id="category_name" name="category[name]" value="<?php echo @$this->category['name']; ?>" class="span12"/>
-            </div>
-        </div>
-        <div class="form-actions">
-            <div class="controls">
-                <input type="submit" name="submit" class="btn btn-primary" value="<?php echo $this->tr("SUBMIT"); ?>" />
-            </div>
-        </div>
+        <?php echo $this->partial("category/_form.phtml", "Classified", array("category"=>$this->category)); ?>
     </form>
     </div>
     <div class="span6"></div>

@@ -29,7 +29,7 @@ class Classified_AdvertController extends Bisna\Controller\Action
             $messages = ($valid === true)? array() : $valid;
 
             if (! empty($messages))
-                throw new Zend_Exception("Validation errors");
+            throw new Zend_Exception("Validation errors");
 
             // OK: create entity
             $advert = new \Classified\Entity\Advert();
@@ -41,7 +41,7 @@ class Classified_AdvertController extends Bisna\Controller\Action
             $session->write("messages_class", "success");
             $session->write("messages", "ADVERT_CREATED_OK");
 
-            $this->redirect("/");
+            $this->redirect($this->view->url(array("action"=>"show", "id"=>$advert->getId()), "adverts", true));
         }
         catch (\Zend_Exception $e)
         {

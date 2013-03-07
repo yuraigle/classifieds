@@ -87,11 +87,10 @@ class Advert extends \Core\Entity\Core
             if (isset($request[$field]))
                 $this->{$field} = $request[$field];
 
-        $this->_em = \Zend_Registry::get("em");
         if (isset($request['used']))
             $this->used =(boolean) $request['used'];
-        if (isset($request['category']))
-            $this->category = $this->_em->find('\Classified\Entity\Category', $request['category']);
+
+        $this->category = $this->em()->find('\Classified\Entity\Category', $request['category']);
 
         $this->updateAnswers($request['answers']);
     }
@@ -105,11 +104,11 @@ class Advert extends \Core\Entity\Core
             foreach ($answers as $ans)
             {
                 if (empty($request_ans[$ans->getQuestion()->getId()]))
-                    $this->_em->remove($ans);
+                    $this->em()->remove($ans);
                 elseif ($request_ans[$ans->getQuestion()->getId()] != $ans->getVal())
                 {
                     $ans->setVal($request_ans[$ans->getQuestion()->getId()]);
-                    $this->_em->persist($ans);
+                    $this->em()->persist($ans);
                 }
 
                 unset($request_ans[$ans->getQuestion()->getId()]);
@@ -121,14 +120,14 @@ class Advert extends \Core\Entity\Core
             {
                 $answer = new \Classified\Entity\Answer();
                 $answer->setAdvert($this);
-                $question = $this->_em->find('\Classified\Entity\Question', $key);
+                $question = $this->em()->find('\Classified\Entity\Question', $key);
 
                 if (! $question) {continue;}
 
                 $answer->setQuestion($question);
                 $answer->setVal($value);
 
-                $this->_em->persist($answer);
+                $this->em()->persist($answer);
             }
     }
 

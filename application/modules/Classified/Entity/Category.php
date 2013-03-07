@@ -19,6 +19,11 @@ class Category extends \Core\Entity\Core
     protected $id;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $postable;
+
+    /**
      * @ORM\Column(type="string")
      */
     protected $name;
@@ -39,20 +44,16 @@ class Category extends \Core\Entity\Core
      */
     protected $template;
 
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-    
+    // =========================================================================
     public function populate($request)
     {
         $fields = array("name");
         foreach ($fields as $field)
             if (isset($request[$field]))
                 $this->{$field} = $request[$field];
+
+        if (isset($request['postable']))
+            $this->postable =(boolean) $request['postable'];
 
         $this->_em = \Zend_Registry::get("em");
         $this->parent = $this->_em->find('\Classified\Entity\Category', $request['parent']);
@@ -61,13 +62,23 @@ class Category extends \Core\Entity\Core
     public function getArrayCopy()
     {
         $arrayCopy = array();
-        $fields = array("id", "name");
+        $fields = array("id", "name", "postable");
         foreach ($fields as $field)
             $arrayCopy[$field] = $this->{$field};
 
         $arrayCopy["parent"] = (is_null($this->parent))? 0 : $this->parent->getId();
 
         return $arrayCopy;
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function defaultFields()
+    {
+        if (is_null($this->postable))
+            $this->postable = false;
     }
 
     /*
@@ -87,6 +98,15 @@ class Category extends \Core\Entity\Core
         }
 
         return $depth;
+    }
+    // =========================================================================
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -209,5 +229,51 @@ class Category extends \Core\Entity\Core
     public function getTemplate()
     {
         return $this->template;
+    }
+
+    /**
+     * Add children
+     *
+     * @param \Classified\Entity\Category $children
+     * @return Category
+     */
+    public function addChild(\Classified\Entity\Category $children)
+    {
+        $this->children[] = $children;
+
+        return $this;
+    }
+
+    /**
+     * Remove children
+     *
+     * @param \Classified\Entity\Category $children
+     */
+    public function removeChild(\Classified\Entity\Category $children)
+    {
+        $this->children->removeElement($children);
+    }
+
+    /**
+     * Set postable
+     *
+     * @param boolean $postable
+     * @return Category
+     */
+    public function setPostable($postable)
+    {
+        $this->postable = $postable;
+
+        return $this;
+    }
+
+    /**
+     * Get postable
+     *
+     * @return boolean 
+     */
+    public function getPostable()
+    {
+        return $this->postable;
     }
 }

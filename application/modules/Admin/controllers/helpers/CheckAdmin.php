@@ -5,12 +5,12 @@ class Admin_Controller_Helper_CheckAdmin extends Zend_Controller_Action_Helper_A
     public function checkAdmin()
     {
         // check for logged in
-        $session = $this->_actionController->getHelper("checkMember")->direct();
+        $this->_actionController->getHelper("checkMember")->direct();
 
         $session = $this->_actionController->getHelper("currentSession")->direct();
         $user = $session->getUser();
 
-        if (! in_array($user->getRole(), array("admin")))
+        if (! $user || ! in_array($user->getRole(), array("admin")))
         {
             $session->write("messages", "NOT_ALLOWED");
             $session->write("messages_class", "error");

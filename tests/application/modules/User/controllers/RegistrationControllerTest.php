@@ -2,8 +2,6 @@
 
 class User_RegistrationControllerTest extends BaseTestCase
 {
-    protected $_existing_login = "kai@li.ru";
-
     public function test_Signup_Page_Exists()
     {
         $this->dispatch('/signup');

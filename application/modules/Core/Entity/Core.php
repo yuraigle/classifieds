@@ -16,8 +16,9 @@ abstract class Core
      */
     public function em()
     {
-        return \Zend_Registry::get("em");
+        return (empty($this->_em))? \Zend_Registry::get("em") : $this->_em;
     }
+
     /**
      * Magic getter to expose protected properties.
      *

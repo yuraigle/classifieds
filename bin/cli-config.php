@@ -1,7 +1,7 @@
 <?php
 
-define('CURRENT_DOMAIN', 'CLI');
-define('APPLICATION_CLI', true);
+defined('CURRENT_DOMAIN') || define('CURRENT_DOMAIN', 'CLI');
+defined('APPLICATION_CLI') || define('APPLICATION_CLI', true);
 
 // Define path to application directory
 defined('APPLICATION_PATH')

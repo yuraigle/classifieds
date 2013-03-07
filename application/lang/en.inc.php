@@ -77,6 +77,7 @@ return array(
     "NEW_CATEGORY" => "New Category",
     "CATEGORY_PARENT" => "Parent",
     "CATEGORY_NAME" => "Name",
+    "CATEGORY_POSTABLE" => "Allow posting ads",
     "CATEGORY_NAME_BLANK" => "Category name must be specified",
     "CATEGORY_CREATED_OK" => "Category created successfully",
     "CATEGORY_DELETED_OK" => "Category deleted successfully",
@@ -105,9 +106,12 @@ return array(
     "NEW_ADVERT" => "New Advert",
     "POST_AD" => "Post an ad",
 
-    "ADVERT_TITLE_BLANK" => "Ad title must be specified",
-    "ADVERT_PRICE_BLANK" => "Ad price must be specified",
-    "ADVERT_CATEGORY_BLANK" => "Ad category must be specified",
+    "ADVERT_ERROR_TITLE_BLANK" => "Ad title must be specified",
+    "ADVERT_ERROR_PRICE_BLANK" => "Ad price must be specified",
+    "ADVERT_ERROR_PRICE_WRONG_FORMAT" => "Ad price has invalid format. Expected decimal, like 100.05",
+    "ADVERT_ERROR_CATEGORY_BLANK" => "Ad category must be specified",
+    "ADVERT_ERROR_CATEGORY_NOT_FOUND" => "Selected ad category not found",
+    "ADVERT_ERROR_CATEGORY_NOT_POSTABLE" => "Ad posting in this category not allowed",
 
     "ADVERT_CREATED_OK" => "Ad created successfully",
 );

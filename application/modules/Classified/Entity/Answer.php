@@ -26,7 +26,7 @@ class Answer extends \Core\Entity\Core
     protected $question;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Advert", cascade={"all"}, fetch="LAZY")
+     * @ORM\ManyToOne(targetEntity="Advert", cascade={"all"}, fetch="LAZY", inversedBy="answers")
      * @ORM\JoinColumn(name="advert_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $advert;

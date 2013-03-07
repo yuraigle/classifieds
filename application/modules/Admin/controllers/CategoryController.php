@@ -11,6 +11,7 @@ class Admin_CategoryController extends Admin_Model_Controller
         $adapter = new \Core_Model_PaginatorAdapter($query);
         $this->view->paginator = $paginator = new \Zend_Paginator($adapter);
         $paginator->setCurrentPageNumber($this->_getParam("page", 1));
+
     }
 
     // shows create category form (modal window)
@@ -61,6 +62,8 @@ class Admin_CategoryController extends Admin_Model_Controller
             $category = new \Classified\Entity\Category();
             $category->setName($faker->sentence(3));
             $category->setParent($parent);
+            $category->setPostable(! is_null($parent));
+
             $this->em()->persist($category);
             $this->em()->flush();
 

@@ -38,7 +38,7 @@ else
         $cat = $objects[$id];
 
         // available -> result
-        $result[] = array('id' => $id, 'name' => $cat->getName(), 'depth' => $depths[$id]);
+        $result[] = array('id' => $id, 'name' => $cat->getName(), 'depth' => $depths[$id], 'postable' => $cat->getPostable());
         unset($rest[$id]);
         unset($available[$id]);
 
@@ -60,6 +60,7 @@ foreach ($result as $res)
     $depth = $res['depth'];
     $spacer = str_repeat("&nbsp;&nbsp;&nbsp;&nbsp;", $depth);
     $sel = ($selected == $id)? " selected" : "";
+    $disabled = ($res['postable'])? "" : "disabled";
     if ($depth == 0)
     {
         if ($optgroup_is_opened)
@@ -68,7 +69,7 @@ foreach ($result as $res)
         $optgroup_is_opened = true;
     }
     else
-        echo "<option$sel value='$id'>$spacer $name</option>";
+        echo "<option $sel $disabled value='$id'>$spacer $name</option>";
 }
 
 if ($optgroup_is_opened)
