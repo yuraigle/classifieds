@@ -2,17 +2,9 @@
 
 class User_SessionControllerTest extends BaseTestCase
 {
-    public function testFakeSessionStarted()
+    public function test_Fake_Session_Started()
     {
         $this->assertTrue(strlen(Zend_Session::getId())>0);
-    }
-
-    public function testValidLoginRedirectsToHome()
-    {
-        $this->loginUser(\Populator::$admin_email, \Populator::$admin_password);
-
-        $this->assertTrue(!is_null($this->currentUser()));
-        $this->assertRedirectTo('/');
     }
 
     public function test_Invalid_Login_0()
@@ -55,6 +47,28 @@ class User_SessionControllerTest extends BaseTestCase
 
         $this->dispatch('/logout');
         $this->assertTrue(is_null($this->currentUser()));
+        $this->assertRedirectTo('/');
+    }
+
+    public function test_Admin_Login_Works()
+    {
+        $this->loginUser(\Populator::$admin_email, \Populator::$admin_password);
+
+        $this->assertTrue(!is_null($this->currentUser()));
+        $this->assertRedirectTo('/');
+    }
+
+    public function test_Any_Member_Login_Works()
+    {
+        $faker = Faker\Factory::create();
+
+        $members = $this->em()->getRepository('\User\Entity\User')
+            ->findBy(array("role" => "member"));
+        $user = $faker->randomElement($members);
+
+        $this->loginUser($user->getEmail(), \Populator::$member_password);
+
+        $this->assertTrue(!is_null($this->currentUser()));
         $this->assertRedirectTo('/');
     }
 }

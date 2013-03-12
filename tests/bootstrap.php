@@ -25,11 +25,14 @@ require_once APPLICATION_PATH . '/../vendor/autoload.php';
 Zend_Session::$_unitTestEnabled = true;
 
 include_once "BaseTestCase.php";
+include_once "Populator.php";
 
-// doctrine reset (testing env only!) ==========================================
+// ============== doctrine reset (testing env only!) ===========================
 exec("./doctrine orm:schema-tool:drop --force", $out);
 echo "Test DB dropped" . PHP_EOL;
 exec("./doctrine orm:schema-tool:create", $out);
 echo "New test DB schema created" . PHP_EOL;
-include_once "populator.php";
+$p = new \Populator();
+$p->populate();
+echo "Fake data seed" . PHP_EOL;
 // =============================================================================

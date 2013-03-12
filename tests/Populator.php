@@ -11,6 +11,7 @@ class Populator extends BaseTestCase
 {
     public static $admin_email = "admin@example.com";
     public static $admin_password = "qwerty";
+    public static $member_password = "asdasd";
 
     public function populate()
     {
@@ -43,6 +44,7 @@ class Populator extends BaseTestCase
             $category->setName($faker->sentence(3));
             $category->setParent($parent);
             $category->setPostable(! is_null($parent));
+            $category->setDomain(CURRENT_DOMAIN);
 
             $this->em()->persist($category);
             $this->em()->flush();
@@ -108,6 +110,7 @@ class Populator extends BaseTestCase
         // populate admin
         $user = new \User\Entity\User();
         $user->setUsername("Admin");
+        $user->setRole("admin");
         $user->setEmail(Populator::$admin_email);
         $user->setSalt($faker->md5);
         $user->setPassword(md5($user->getSalt() . Populator::$admin_password));
@@ -119,13 +122,13 @@ class Populator extends BaseTestCase
         $user->setCreated($faker->dateTimeBetween('-2 years', 'now'));
         $this->em()->persist($user);
 
-        for ($i=0; $i<200; $i++)
+        for ($i = 0; $i < 5; $i++)
         {
             $user = new \User\Entity\User();
             $user->setUsername($faker->name);
             $user->setEmail($faker->email);
-            $user->setPassword($faker->md5);
             $user->setSalt($faker->md5);
+            $user->setPassword(md5($user->getSalt() . Populator::$member_password));
             $user->setPhone($faker->phoneNumber);
             $user->setDescription($faker->text);
             $user->setUrl($faker->url);
@@ -139,6 +142,3 @@ class Populator extends BaseTestCase
         $this->em()->flush();
     }
 }
-
-$p = new Populator();
-$p->populate();

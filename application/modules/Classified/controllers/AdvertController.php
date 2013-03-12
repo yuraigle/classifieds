@@ -129,4 +129,55 @@ class Classified_AdvertController extends Bisna\Controller\Action
     {
 
     }
+
+    // delete entity
+    public function deleteAction()
+    {
+        $aRepo = $this->em()->getRepository('\Classified\Entity\Advert');
+        $id = $this->getRequest()->getPost('id', 0);
+        $advert = $aRepo->find($id);
+
+        // access
+        if (is_null($advert)) {throw new Zend_Exception("ERROR", 404);}
+        $this->_helper->checkMember(); // logged in
+//        $this->_helper->checkOwner($advert->getUser()->getId()); // is ad owner || is admin
+
+        $this->em()->remove($advert);
+        $this->em()->flush();
+
+        $session = $this->_helper->currentSession();
+        $session->write("messages_class", "info");
+        $session->write("messages", "ADVERT_DELETED_OK");
+        return $this->_helper->json(array("status"=>"OK"));
+    }
+
+    public function listAction()
+    {
+        $query = $this->getParam("query");
+        $slug = $this->getParam("slug");
+
+        if ($slug)
+        {
+            $category = $this->em()->createQuery("select c from \Classified\Entity\Category c
+                    where c.domain =?1 and c.slug =?2")
+                ->setParameter(1, CURRENT_DOMAIN)
+                ->setParameter(2, $slug)
+                ->setMaxResults(1)
+                ->getResult();
+
+            if (empty($category))
+            {
+                $category = null;
+                echo "404";
+            }
+            else
+                $category = $category[0];
+        }
+        else
+            $category = null;
+
+
+        if ($category)
+            echo $category->getName();
+    }
 }

@@ -5,9 +5,8 @@ class Admin_CategoryController extends Admin_Model_Controller
     // categories list
     public function indexAction()
     {
-        $dql = "SELECT c from \Classified\Entity\Category c WHERE 1=1";
-
-        $query = $this->em()->createQuery($dql);
+        $query = $this->em()->createQuery("SELECT c from \Classified\Entity\Category c WHERE c.domain =?1")
+            ->setParameter(1, CURRENT_DOMAIN);
         $adapter = new \Core_Model_PaginatorAdapter($query);
         $this->view->paginator = $paginator = new \Zend_Paginator($adapter);
         $paginator->setCurrentPageNumber($this->_getParam("page", 1));
@@ -63,6 +62,7 @@ class Admin_CategoryController extends Admin_Model_Controller
             $category->setName($faker->sentence(3));
             $category->setParent($parent);
             $category->setPostable(! is_null($parent));
+            $category->setDomain(CURRENT_DOMAIN);
 
             $this->em()->persist($category);
             $this->em()->flush();

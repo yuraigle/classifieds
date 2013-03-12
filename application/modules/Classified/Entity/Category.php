@@ -29,6 +29,17 @@ class Category extends \Core\Entity\Core
     protected $name;
 
     /**
+     * @Gedmo\Slug(fields={"name"})
+     * @ORM\Column(type="string")
+     */
+    protected $slug;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $domain;
+
+    /**
      * @ORM\OneToMany(targetEntity="Category", mappedBy="parent")
      **/
     private $children;
@@ -275,5 +286,51 @@ class Category extends \Core\Entity\Core
     public function getPostable()
     {
         return $this->postable;
+    }
+
+    /**
+     * Set domain
+     *
+     * @param string $domain
+     * @return Category
+     */
+    public function setDomain($domain)
+    {
+        $this->domain = $domain;
+
+        return $this;
+    }
+
+    /**
+     * Get domain
+     *
+     * @return string 
+     */
+    public function getDomain()
+    {
+        return $this->domain;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Category
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }
